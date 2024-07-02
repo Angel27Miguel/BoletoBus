@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Interfaces\IEmpleado\" />
     <Folder Include="Interfaces\IReserva\" />
-    <Folder Include="Interfaces\IViaje\" />
   </ItemGroup>
 
   <ItemGroup>
