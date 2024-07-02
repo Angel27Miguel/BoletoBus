@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Viaje.Domain", "B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Viaje.Persistance", "BoletoBus.Viaje.Persistance\BoletoBus.Viaje.Persistance.csproj", "{360027EC-A293-4C3F-8CEA-FA3107CB1E7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoletoBus.Viaje.Application", "BoletoBus.Viaje.Application\BoletoBus.Viaje.Application.csproj", "{1ADE76F9-B56C-4601-A70F-B4BA1208D31F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{360027EC-A293-4C3F-8CEA-FA3107CB1E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{360027EC-A293-4C3F-8CEA-FA3107CB1E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{360027EC-A293-4C3F-8CEA-FA3107CB1E7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ADE76F9-B56C-4601-A70F-B4BA1208D31F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ADE76F9-B56C-4601-A70F-B4BA1208D31F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ADE76F9-B56C-4601-A70F-B4BA1208D31F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ADE76F9-B56C-4601-A70F-B4BA1208D31F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{468DA678-7698-4876-9DF8-F3182CFF498C} = {005B06AD-8C93-4142-B396-4728B7ECAD0E}
 		{B133862A-9FFD-40B1-AFBA-ADDD9B7BDABF} = {1A4B3944-01C4-436B-8FA6-55DBFF7C2F25}
 		{360027EC-A293-4C3F-8CEA-FA3107CB1E7C} = {1549F358-D56A-4CA6-B3E4-B7CA29B87BAE}
+		{1ADE76F9-B56C-4601-A70F-B4BA1208D31F} = {C4140122-B55D-406B-B8AC-3BE29FD24300}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28DBF8F6-93A1-4F90-ABBF-DF1DB672F0E5}
