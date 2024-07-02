@@ -7,12 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\BoletoBus.Common.Data\BoletoBus.Common.Data.csproj" />
+    <Folder Include="Interfaces\IEmpleado\" />
+    <Folder Include="Interfaces\IReserva\" />
   </ItemGroup>
 
 </Project>
