@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Infraestructure",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{6DB9A09E-7E54-44AB-BC6C-D23DABBA4D56}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Viaje Management", "Viaje Management", "{89E32BE3-751A-4B1A-9896-97CBE5E3344E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Boleto Bus Management", "Boleto Bus Management", "{89E32BE3-751A-4B1A-9896-97CBE5E3344E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{005B06AD-8C93-4142-B396-4728B7ECAD0E}"
 EndProject
@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Viaje.Domain", "B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Viaje.Persistance", "BoletoBus.Viaje.Persistance\BoletoBus.Viaje.Persistance.csproj", "{360027EC-A293-4C3F-8CEA-FA3107CB1E7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoletoBus.Viaje.Application", "BoletoBus.Viaje.Application\BoletoBus.Viaje.Application.csproj", "{1ADE76F9-B56C-4601-A70F-B4BA1208D31F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Viaje.Application", "BoletoBus.Viaje.Application\BoletoBus.Viaje.Application.csproj", "{1ADE76F9-B56C-4601-A70F-B4BA1208D31F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
