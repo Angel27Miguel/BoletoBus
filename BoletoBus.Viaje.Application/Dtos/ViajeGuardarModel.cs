@@ -2,7 +2,7 @@
 
 namespace BoletoBus.Viaje.Application.Dtos
 {
-    internal class ViajeGuardarModel : ViajeBase
+    public class ViajeGuardarModel : ViajeBase
     {
     }
 }
