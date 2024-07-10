@@ -15,4 +15,9 @@
     <ProjectReference Include="..\BoletoBus.Viaje.Domain\BoletoBus.Viaje.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

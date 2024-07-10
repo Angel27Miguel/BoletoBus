@@ -5,7 +5,7 @@ using BoletoBus.Empleado.Application.Dtos;
 
 namespace BoletoBus.Empleado.Application.Interfaces
 {
-    internal interface IEmpleadoServices
+    public interface IEmpleadoServices
     {
         ServiceResult GetEmpleados();
         ServiceResult GetEmpleado(int id);
