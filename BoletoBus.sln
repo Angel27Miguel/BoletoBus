@@ -47,16 +47,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{8A03C6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{A9EC59C8-A53D-4B99-973D-ED0DC603B5DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoletoBus.Empleado.Api", "BoletoBus.Empleado.Api\BoletoBus.Empleado.Api.csproj", "{B0F8A71C-AC9F-4BD6-8EB1-B5292A600662}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Empleado.Api", "BoletoBus.Empleado.Api\BoletoBus.Empleado.Api.csproj", "{B0F8A71C-AC9F-4BD6-8EB1-B5292A600662}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoletoBus.Empleado.Application", "BoletoBus.Empleado.Application\BoletoBus.Empleado.Application.csproj", "{67E0801D-34D0-4BC7-936E-14701E3D2F0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Empleado.Application", "BoletoBus.Empleado.Application\BoletoBus.Empleado.Application.csproj", "{67E0801D-34D0-4BC7-936E-14701E3D2F0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoletoBus.Empleado.Domain", "BoletoBus.Empleado.Domain\BoletoBus.Empleado.Domain.csproj", "{E333E182-B714-4DD2-A2A9-5B7C068C943C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Empleado.Domain", "BoletoBus.Empleado.Domain\BoletoBus.Empleado.Domain.csproj", "{E333E182-B714-4DD2-A2A9-5B7C068C943C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E2503AD1-6961-4826-8554-9340741D103E} = {E2503AD1-6961-4826-8554-9340741D103E}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoletoBus.Empleado.Persistance", "BoletoBus.Empleado.Persistance\BoletoBus.Empleado.Persistance.csproj", "{E5FE1EA8-43CA-4898-8BB5-813A9CC9E3B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Empleado.Persistance", "BoletoBus.Empleado.Persistance\BoletoBus.Empleado.Persistance.csproj", "{E5FE1EA8-43CA-4898-8BB5-813A9CC9E3B8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reserva Management", "Reserva Management", "{9531F112-EF40-4596-98BB-1B0AEBDB8FA1}"
 EndProject
@@ -68,13 +68,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{715780
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{D17BE8A9-E290-4873-9AEF-EF7321CAF3DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoletoBus.Reserva.Api", "BoletoBus.Reserva.Api\BoletoBus.Reserva.Api.csproj", "{F36CA774-BD95-4F96-B388-18ABFCF5334D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Reserva.Api", "BoletoBus.Reserva.Api\BoletoBus.Reserva.Api.csproj", "{F36CA774-BD95-4F96-B388-18ABFCF5334D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoletoBus.Reserva.Application", "BoletoBus.Reserva.Application\BoletoBus.Reserva.Application.csproj", "{EE72092B-66B5-4CAB-89C1-1CD6935AC2AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Reserva.Application", "BoletoBus.Reserva.Application\BoletoBus.Reserva.Application.csproj", "{EE72092B-66B5-4CAB-89C1-1CD6935AC2AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoletoBus.Reserva.Domain", "BoletoBus.Reserva.Domain\BoletoBus.Reserva.Domain.csproj", "{51574E1B-6C7F-4F81-9A3E-58D6DCF67F39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Reserva.Domain", "BoletoBus.Reserva.Domain\BoletoBus.Reserva.Domain.csproj", "{51574E1B-6C7F-4F81-9A3E-58D6DCF67F39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoletoBus.Reserva.Persistance", "BoletoBus.Reserva.Persistance\BoletoBus.Reserva.Persistance.csproj", "{28BE86CC-FE70-4C38-B4B1-AB383CCE74E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Reserva.Persistance", "BoletoBus.Reserva.Persistance\BoletoBus.Reserva.Persistance.csproj", "{28BE86CC-FE70-4C38-B4B1-AB383CCE74E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
