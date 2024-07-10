@@ -1,11 +1,9 @@
-﻿using BoletoBus.Empleado.Domain.Entities;
-using BoletoBus.Empleado.Domain.Interfaces;
+﻿
 using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
+using BoletoBus.Empleado.Domain.Entities;
+using BoletoBus.Empleado.Domain.Interfaces;
 using BoletoBus.Empleado.Persistance.Context;
 using BoletoBus.Empleado.Persistance.Exceptions;
-using BoletoBus.Empleado.Application.Dtos;
-
 
 namespace BoletoBus.Empleado.Persistance.Repositories
 {
@@ -36,13 +34,18 @@ namespace BoletoBus.Empleado.Persistance.Repositories
 
         public void Editar(Empleados entity)
         {
-            this.context.Empleado.Update(entity);
+            var empleado = GetEmpleadoById(entity.Id);
+            empleado.Nombre = entity.Nombre;
+            empleado.Cargo = entity.Cargo;
+
+            this.context.Empleado.Update(empleado);
             this.context.SaveChanges();
         }
 
         public void Eliminar(Empleados entity)
         {
-            this.context.Empleado.Remove(entity);
+            var empleado = GetEmpleadoById(entity.Id);
+            this.context.Empleado.Remove(empleado);
             this.context.SaveChanges();
         }
 
@@ -53,12 +56,7 @@ namespace BoletoBus.Empleado.Persistance.Repositories
 
         public List<Empleados> GetAll()
         {
-            return this.context.Empleado.ToList();
-        }
-
-        public List<Empleados> GetEmpleadosByID(int idViaje)
-        {
-            return this.context.Empleado.Where(e => e.Id == idViaje).ToList();
+            return this.context.Empleado.OrderByDescending(e => e.Id).ToList();
         }
 
         public Empleados GetEntityBy(int id)
@@ -66,52 +64,9 @@ namespace BoletoBus.Empleado.Persistance.Repositories
             return GetEmpleadoById(id);
         }
 
-        public void EditarEmpleados(EmpleadosEditarModel empleadosEditar)
+        public List<Empleados> GetEmpleadosByID(int idEmpleado)
         {
-            var empleado = GetEmpleadoById(empleadosEditar.IdEmpleado);
-            empleado.Nombre = empleadosEditar.Nombre;
-            empleado.Cargo = empleadosEditar.Cargo;
-            this.context.Empleado.Update(empleado);
-            this.context.SaveChanges();
-        }
-
-        public void EliminarEmpleados(EmpleadosEliminarModel empleadosEliminar)
-        {
-            var empleado = GetEmpleadoById(empleadosEliminar.IdEmpleado);
-            this.context.Empleado.Remove(empleado);
-            this.context.SaveChanges();
-        }
-
-        public EmpleadosModel GetEmpleado(int idEmpleado)
-        {
-            var empleado = GetEmpleadoById(idEmpleado);
-            return new EmpleadosModel
-            {
-                IdEmpleado = empleado.Id,
-                Nombre = empleado.Nombre,
-                Cargo = empleado.Cargo
-            };
-        }
-
-        public List<EmpleadosModel> GetEmpleados()
-        {
-            return this.context.Empleado.Select(e => new EmpleadosModel
-            {
-                IdEmpleado = e.Id,
-                Nombre = e.Nombre,
-                Cargo = e.Cargo
-            }).ToList();
-        }
-
-        public void GuardarEmpleado(EmpleadosGuardarModel empleadosGuardar)
-        {
-            Empleados empleado = new Empleados
-            {
-                Nombre = empleadosGuardar.Nombre,
-                Cargo = empleadosGuardar.Cargo
-            };
-            this.context.Empleado.Add(empleado);
-            this.context.SaveChanges();
+            return this.context.Empleado.Where(e => e.Id == idEmpleado).ToList();
         }
     }
 }
