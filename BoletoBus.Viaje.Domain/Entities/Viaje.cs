@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace BoletoBus.Entidades.Domain.Entities.Viaje
+namespace BoletoBus.Viaje.Domain.Entities
 {
     public class Viaje : AuditEntity<int>
     {

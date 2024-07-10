@@ -1,20 +1,19 @@
 ﻿
 
+using BoletoBus.Empleado.Application.Base;
 using BoletoBus.Empleado.Application.Dtos;
 
 namespace BoletoBus.Empleado.Application.Interfaces
 {
     internal interface IEmpleadoServices
     {
-        List<EmpleadoModel> GetEmpleados();
+        ServiceResult GetEmpleados();
+        ServiceResult GetEmpleado(int id);
 
-        void GuardarEmpleado(EmpleadosGuardarModel empleadosGuardar);
+        ServiceResult EditarEmpleado(EmpleadosEditarModel empleadoEditar);
 
-        void EliminarEmpleados(EmpleadosEliminarModel empleadosEliminar);
+        ServiceResult EliminarEmpleado(EmpleadosEliminarModel empleadoEliminar);
 
-        void EditarEmpleados(EmpleadosEditarModel empleadosEditar);
-
-
-        EmpleadoModel GetEmpleado(int IdEmpleado);
+        ServiceResult GuardarEmpleado(EmpleadosGuardarModel empleadoGuardar);
     }
 }

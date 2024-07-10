@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\IReserva\" />
+    <Compile Remove="Interfaces\IReserva\**" />
+    <EmbeddedResource Remove="Interfaces\IReserva\**" />
+    <None Remove="Interfaces\IReserva\**" />
   </ItemGroup>
 
   <ItemGroup>
