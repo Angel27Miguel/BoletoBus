@@ -1,4 +1,4 @@
-﻿using BoletoBus.Entidades.Domain.Entities.Empleado;
+﻿
 using Microsoft.EntityFrameworkCore;
 
 
@@ -12,12 +12,7 @@ namespace BoletoBus.Viaje.Persistance.Context
 
         }
 
-        #region"DB Sets de Angel Miguel"
         public DbSet<Domain.Entities.Viaje> Viaje { get; set; }
-        
-
-
-        #endregion
 
 
 
