@@ -56,6 +56,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoletoBus.Empleado.Domain",
 		{E2503AD1-6961-4826-8554-9340741D103E} = {E2503AD1-6961-4826-8554-9340741D103E}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoletoBus.Empleado.Persistance", "BoletoBus.Empleado.Persistance\BoletoBus.Empleado.Persistance.csproj", "{E5FE1EA8-43CA-4898-8BB5-813A9CC9E3B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -98,6 +100,10 @@ Global
 		{E333E182-B714-4DD2-A2A9-5B7C068C943C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E333E182-B714-4DD2-A2A9-5B7C068C943C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E333E182-B714-4DD2-A2A9-5B7C068C943C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5FE1EA8-43CA-4898-8BB5-813A9CC9E3B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5FE1EA8-43CA-4898-8BB5-813A9CC9E3B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5FE1EA8-43CA-4898-8BB5-813A9CC9E3B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5FE1EA8-43CA-4898-8BB5-813A9CC9E3B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,6 +133,7 @@ Global
 		{B0F8A71C-AC9F-4BD6-8EB1-B5292A600662} = {25015632-F7F2-4AE3-ACDC-2820146807DC}
 		{67E0801D-34D0-4BC7-936E-14701E3D2F0B} = {693DDB60-D7F3-40F4-996A-F97442522C48}
 		{E333E182-B714-4DD2-A2A9-5B7C068C943C} = {8A03C6CF-B9B1-422A-8D7A-7CB76735790A}
+		{E5FE1EA8-43CA-4898-8BB5-813A9CC9E3B8} = {A9EC59C8-A53D-4B99-973D-ED0DC603B5DC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28DBF8F6-93A1-4F90-ABBF-DF1DB672F0E5}

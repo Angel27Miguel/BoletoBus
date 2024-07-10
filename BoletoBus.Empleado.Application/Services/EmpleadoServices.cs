@@ -1,24 +1,22 @@
 ﻿using BoletoBus.Empleado.Application.Base;
 using BoletoBus.Empleado.Application.Dtos;
 using BoletoBus.Empleado.Application.Interfaces;
+using BoletoBus.Empleado.Domain.Entities;
+using BoletoBus.Empleado.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BoletoBus.Empleado.Application.Services
 {
     public class EmpleadoServices : IEmpleadoServices
     {
         private readonly ILogger<EmpleadoServices> logger;
-        private readonly IEmpleados empleadoDb;
+        private readonly IEmpleadoRepository empleadoRepository;
 
-        public EmpleadoServices(IEmpleados empleadoDb, ILogger<EmpleadoServices> logger)
+        public EmpleadoServices(IEmpleadoRepository empleadoRepository, ILogger<EmpleadoServices> logger)
         {
             this.logger = logger;
-            this.empleadoDb = empleadoDb;
+            this.empleadoRepository = empleadoRepository;
         }
 
         private ServiceResult ValidarEmpleado(object empleado)
@@ -72,13 +70,13 @@ namespace BoletoBus.Empleado.Application.Services
             return result;
         }
 
-        ServiceResult IEmpleadoServices.GetEmpleados()
+        public ServiceResult GetEmpleados()
         {
             ServiceResult result = new ServiceResult();
 
             try
             {
-                result.Data = empleadoDb.GetEmpleados();
+                result.Data = empleadoRepository.GetAll();
                 this.logger.LogInformation("Empleados obtenidos exitosamente.");
             }
             catch (Exception ex)
@@ -90,12 +88,12 @@ namespace BoletoBus.Empleado.Application.Services
             return result;
         }
 
-        ServiceResult IEmpleadoServices.GetEmpleado(int id)
+        public ServiceResult GetEmpleado(int id)
         {
             ServiceResult result = new ServiceResult();
             try
             {
-                result.Data = this.empleadoDb.GetEmpleado(id);
+                result.Data = this.empleadoRepository.GetEntityBy(id);
                 this.logger.LogInformation($"Empleado con ID {id} obtenido exitosamente.");
             }
             catch (Exception ex)
@@ -107,7 +105,7 @@ namespace BoletoBus.Empleado.Application.Services
             return result;
         }
 
-        ServiceResult IEmpleadoServices.EditarEmpleado(EmpleadosEditarModel empleadoEditar)
+        public ServiceResult EditarEmpleado(EmpleadosEditarModel empleadoEditar)
         {
             ServiceResult result = ValidarEmpleado(empleadoEditar);
 
@@ -116,7 +114,14 @@ namespace BoletoBus.Empleado.Application.Services
 
             try
             {
-                this.empleadoDb.EditarEmpleados(empleadoEditar);
+                Empleados empleado = new Empleados
+                {
+                    Id = empleadoEditar.IdEmpleado,
+                    Nombre = empleadoEditar.Nombre,
+                    Cargo = empleadoEditar.Cargo
+                };
+
+                this.empleadoRepository.Editar(empleado);
                 this.logger.LogInformation($"Empleado con ID {empleadoEditar.IdEmpleado} editado exitosamente.");
             }
             catch (Exception ex)
@@ -128,7 +133,7 @@ namespace BoletoBus.Empleado.Application.Services
             return result;
         }
 
-        ServiceResult IEmpleadoServices.EliminarEmpleado(EmpleadosEliminarModel empleadoEliminar)
+        public ServiceResult EliminarEmpleado(EmpleadosEliminarModel empleadoEliminar)
         {
             ServiceResult result = new ServiceResult();
 
@@ -137,10 +142,17 @@ namespace BoletoBus.Empleado.Application.Services
                 if (empleadoEliminar is null)
                 {
                     result.Success = false;
-                    result.Message = "";
+                    result.Message = "El modelo de eliminación no puede ser nulo.";
                     return result;
                 }
-                this.empleadoDb.EliminarEmpleados(empleadoEliminar);
+
+                Empleados empleado = new Empleados
+                {
+                    Id = empleadoEliminar.IdEmpleado
+                };
+
+                this.empleadoRepository.Eliminar(empleado);
+                this.logger.LogInformation($"Empleado con ID {empleadoEliminar.IdEmpleado} eliminado exitosamente.");
             }
             catch (Exception ex)
             {
@@ -151,7 +163,7 @@ namespace BoletoBus.Empleado.Application.Services
             return result;
         }
 
-        ServiceResult IEmpleadoServices.GuardarEmpleado(EmpleadosGuardarModel empleadoGuardar)
+        public ServiceResult GuardarEmpleado(EmpleadosGuardarModel empleadoGuardar)
         {
             ServiceResult result = ValidarEmpleado(empleadoGuardar);
 
@@ -160,7 +172,13 @@ namespace BoletoBus.Empleado.Application.Services
 
             try
             {
-                this.empleadoDb.GuardarEmpleado(empleadoGuardar);
+                Empleados empleado = new Empleados
+                {
+                    Nombre = empleadoGuardar.Nombre,
+                    Cargo = empleadoGuardar.Cargo
+                };
+
+                this.empleadoRepository.Agregar(empleado);
                 this.logger.LogInformation($"Empleado guardado exitosamente.");
             }
             catch (Exception ex)
