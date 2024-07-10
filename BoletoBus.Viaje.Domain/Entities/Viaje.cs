@@ -8,5 +8,7 @@ namespace BoletoBus.Viaje.Domain.Entities
     {
         [Column("IdViaje")]
         public override int Id { get; set; }
+
+
     }
 }
