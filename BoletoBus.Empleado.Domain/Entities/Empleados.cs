@@ -1,10 +1,9 @@
 ﻿
-
 using System.ComponentModel.DataAnnotations;
 
-namespace BoletoBus.Empleado.Application.Dtos
+namespace BoletoBus.Empleado.Domain.Entities
 {
-    public abstract class EmpleadoModel
+    public class Empleados
     {
         #region "Atributos"
 
