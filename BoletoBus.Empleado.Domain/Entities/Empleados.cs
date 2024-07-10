@@ -9,11 +9,14 @@ namespace BoletoBus.Empleado.Domain.Entities
     {
         #region "Atributos"
 
+        [Key]
         [Column("IdEmpleado")]
         public override int Id { get; set; }
+        [Column("Nombre")]
         public string? Nombre { get; set; }
-        public string? Cargo { get; set; }
 
+        [Column("Cargo")]
+        public string? Cargo { get; set; }
         #endregion
     }
 }

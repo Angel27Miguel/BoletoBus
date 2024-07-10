@@ -1,7 +1,12 @@
 ﻿
+using BoletoBus.Common.Data.Repository;
+
 namespace BoletoBus.Empleado.Domain.Interfaces
 {
-    internal class IEmpleadoRepository : 
+    public interface IEmpleadoRepository : IBaseRepository<Entities.Empleados, int>
     {
+        List<Entities.Empleados> GetEmpleadosByID(int idViaje);
+
+        
     }
 }
