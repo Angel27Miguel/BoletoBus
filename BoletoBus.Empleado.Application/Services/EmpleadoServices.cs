@@ -4,7 +4,7 @@ using BoletoBus.Empleado.Application.Interfaces;
 using BoletoBus.Empleado.Domain.Entities;
 using BoletoBus.Empleado.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
-using System;
+
 
 namespace BoletoBus.Empleado.Application.Services
 {
