@@ -130,7 +130,7 @@ namespace BoletoBus.Viaje.Application.Services
                     Precio = viajeGuardar.Precio,
                     TotalAsientos = viajeGuardar.TotalAsientos,
                     AsientosReservados = viajeGuardar.AsientosReservados,
-                    FechaCreacion = DateTime.Now // Assuming FechaCreacion is set here
+                    FechaCreacion = DateTime.Now 
                 };
 
                 viajeRepository.Agregar(entity);
