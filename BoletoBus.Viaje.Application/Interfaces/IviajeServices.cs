@@ -10,11 +10,11 @@ namespace BoletoBus.Viaje.Application.Interfaces
        
         ServiceResult GetViajes();
         ServiceResult GetViaje(int id);
-        ServiceResult EditarViaje(ViajeEditarModel viajeEditar);
+        ServiceResult EditarViaje(ViajeEditar viajeEditar);
 
-        ServiceResult EliminarViaje(ViajeEliminarModel viajeEliminar);
+        ServiceResult EliminarViaje(ViajeEliminar viajeEliminar);
 
-        ServiceResult GuardarViaje(ViajeGuardarModel viajeGuardar);
+        ServiceResult GuardarViaje(ViajeGuardar viajeGuardar);
 
     }
 }

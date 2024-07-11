@@ -1,11 +1,9 @@
 {
   "dependencies": {
-    "secrets1": {
-      "type": "secrets.user"
-    },
-    "sqlite1": {
+    "mssql1": {
+      "serviceConnectorResourceId": "",
       "secretStore": "LocalSecretsFile",
-      "type": "sqlite.local",
+      "type": "mssql.local",
       "connectionId": "ConnectionStrings:BoletoBusContext",
       "dynamicId": null
     }

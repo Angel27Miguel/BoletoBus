@@ -18,7 +18,7 @@ namespace BoletoBus.Viaje.Application.Services
             this.logger = logger;
         }
 
-        public ServiceResult EditarViaje(ViajeEditarModel viajeEditar)
+        public ServiceResult EditarViaje(ViajeEditar viajeEditar)
         {
             var result = ValidarViaje(viajeEditar);
 
@@ -50,7 +50,7 @@ namespace BoletoBus.Viaje.Application.Services
             return result;
         }
 
-        public ServiceResult EliminarViaje(ViajeEliminarModel viajeEliminar)
+        public ServiceResult EliminarViaje(ViajeEliminar viajeEliminar)
         {
             var result = new ServiceResult();
 
@@ -110,7 +110,7 @@ namespace BoletoBus.Viaje.Application.Services
             return result;
         }
 
-        public ServiceResult GuardarViaje(ViajeGuardarModel viajeGuardar)
+        public ServiceResult GuardarViaje(ViajeGuardar viajeGuardar)
         {
             var result = ValidarViaje(viajeGuardar);
 
@@ -156,11 +156,11 @@ namespace BoletoBus.Viaje.Application.Services
                 return result;
             }
 
-            if (viaje is ViajeEditarModel editarModel)
+            if (viaje is ViajeEditar editarModel)
             {
                 return ValidarCamposViaje(editarModel.IdBus, editarModel.IdRuta, editarModel.HoraSalida, editarModel.HoraLlegada, editarModel.Precio, editarModel.TotalAsientos, editarModel.AsientosReservados);
             }
-            else if (viaje is ViajeGuardarModel guardarModel)
+            else if (viaje is ViajeGuardar guardarModel)
             {
                 return ValidarCamposViaje(guardarModel.IdBus, guardarModel.IdRuta, guardarModel.HoraSalida, guardarModel.HoraLlegada, guardarModel.Precio, guardarModel.TotalAsientos, guardarModel.AsientosReservados);
             }

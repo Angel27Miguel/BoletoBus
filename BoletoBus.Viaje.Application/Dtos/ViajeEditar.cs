@@ -1,7 +1,8 @@
 ﻿
+
 namespace BoletoBus.Viaje.Application.Dtos
 {
-    public class ViajeModel : ViajeBase
+    public class ViajeEditar : ViajeBase
     {
     }
 }
