@@ -4,7 +4,7 @@ using BoletoBus.Reserva.Domain.Interfaces;
 using BoletoBus.Reserva.Persistance.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BoletoBus.rESERVA.IOC.Dependency
+namespace BoletoBus.Reserva.IOC.Dependency
 {
     public static class ReservaDependency
     {

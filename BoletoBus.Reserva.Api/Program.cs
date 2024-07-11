@@ -1,6 +1,7 @@
-
+using BoletoBus.Reserva.IOC.Dependency;
 using BoletoBus.Empleado.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,7 +10,7 @@ builder.Services.AddDbContext<BoletoBusContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("BoletoBusContext")));
 
 //Agregar depemdencia
-builder.Services.AddEmpleadoDependencies();
+builder.Services.AddReservaDependency();
 
 
 builder.Services.AddControllers();
