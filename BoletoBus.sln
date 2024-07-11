@@ -76,6 +76,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Reserva.Domain", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoletoBus.Reserva.Persistance", "BoletoBus.Reserva.Persistance\BoletoBus.Reserva.Persistance.csproj", "{28BE86CC-FE70-4C38-B4B1-AB383CCE74E6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IOC", "IOC", "{BC76B736-5ACE-4350-9090-B86390E57C78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoletoBus.Empleado.IOC", "BoletoBus.Empleado.IOC\BoletoBus.Empleado.IOC.csproj", "{D168611E-1CB0-4F78-9DAB-0BFBD041C96F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -138,6 +142,10 @@ Global
 		{28BE86CC-FE70-4C38-B4B1-AB383CCE74E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28BE86CC-FE70-4C38-B4B1-AB383CCE74E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28BE86CC-FE70-4C38-B4B1-AB383CCE74E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D168611E-1CB0-4F78-9DAB-0BFBD041C96F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D168611E-1CB0-4F78-9DAB-0BFBD041C96F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D168611E-1CB0-4F78-9DAB-0BFBD041C96F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D168611E-1CB0-4F78-9DAB-0BFBD041C96F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,6 +185,8 @@ Global
 		{EE72092B-66B5-4CAB-89C1-1CD6935AC2AC} = {B0765C48-BD0E-44DD-908B-9A706BB7E3DD}
 		{51574E1B-6C7F-4F81-9A3E-58D6DCF67F39} = {71578092-A9EA-41E2-A824-B5928C7514B8}
 		{28BE86CC-FE70-4C38-B4B1-AB383CCE74E6} = {D17BE8A9-E290-4873-9AEF-EF7321CAF3DA}
+		{BC76B736-5ACE-4350-9090-B86390E57C78} = {6F9D1A11-351A-4AE0-84EA-BC167327FF2F}
+		{D168611E-1CB0-4F78-9DAB-0BFBD041C96F} = {BC76B736-5ACE-4350-9090-B86390E57C78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28DBF8F6-93A1-4F90-ABBF-DF1DB672F0E5}
