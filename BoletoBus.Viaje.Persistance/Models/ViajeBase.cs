@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace BoletoBus.Viaje.Persistance.Models
@@ -17,6 +18,8 @@ namespace BoletoBus.Viaje.Persistance.Models
         public decimal Precio { get; set; }
         public int TotalAsientos { get; set; }
         public int AsientosReservados { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public int AsientoDisponibles { get; set; }
         public DateTime FechaCreacion { get; set; }
     }
