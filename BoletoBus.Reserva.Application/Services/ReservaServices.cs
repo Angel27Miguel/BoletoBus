@@ -54,7 +54,7 @@ namespace BoletoBus.Reserva.Application.Services
             return result;
         }
 
-        public ServiceResult EditarReserva(ReservaEditarModel editarReserva)
+        public ServiceResult EditarReserva(ReservaEditar editarReserva)
         {
             ServiceResult result = ValidarReserva(editarReserva);
 
@@ -84,7 +84,7 @@ namespace BoletoBus.Reserva.Application.Services
             return result;
         }
 
-        public ServiceResult EliminarReserva(ReservaEliminarModel eliminarReserva)
+        public ServiceResult EliminarReserva(ReservaEliminar eliminarReserva)
         {
             ServiceResult result = new ServiceResult();
 
@@ -114,7 +114,7 @@ namespace BoletoBus.Reserva.Application.Services
             return result;
         }
 
-        public ServiceResult GuardarReserva(ReservaGuardarModel guardarReserva)
+        public ServiceResult GuardarReserva(ReservaGuardar guardarReserva)
         {
             ServiceResult result = ValidarReserva(guardarReserva);
 
@@ -155,11 +155,11 @@ namespace BoletoBus.Reserva.Application.Services
                 return result;
             }
 
-            if (reserva is ReservaEditarModel editarModel)
+            if (reserva is ReservaEditar editarModel)
             {
                 return ValidarCamposReserva(editarModel.IdViaje, editarModel.IdPasajero, editarModel.AsientosReservados, editarModel.MontoTotal);
             }
-            else if (reserva is ReservaGuardarModel guardarModel)
+            else if (reserva is ReservaGuardar guardarModel)
             {
                 return ValidarCamposReserva(guardarModel.IdViaje, guardarModel.IdPasajero, guardarModel.AsientosReservados, guardarModel.MontoTotal);
             }

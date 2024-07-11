@@ -8,9 +8,9 @@ namespace BoletoBus.Reserva.Application.Interfaces
     {
         ServiceResult GetReserva();
         ServiceResult GetReservaById(int Id);
-        ServiceResult GuardarReserva(ReservaGuardarModel guardarReserva);
-        ServiceResult EditarReserva(ReservaEditarModel editarReserva);
-        ServiceResult EliminarReserva(ReservaEliminarModel eliminarReserva);
+        ServiceResult GuardarReserva(ReservaGuardar guardarReserva);
+        ServiceResult EditarReserva(ReservaEditar editarReserva);
+        ServiceResult EliminarReserva(ReservaEliminar eliminarReserva);
 
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 namespace BoletoBus.Reserva.Application.Dtos
 {
-    public class ReservaGuardarModel : ReservaBase
+    public class ReservaMode : ReservaBase
     {
     }
 }

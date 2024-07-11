@@ -2,6 +2,7 @@
 using BoletoBus.Reserva.Domain.Entities;
 using BoletoBus.Reserva.Domain.Interfaces;
 using BoletoBus.Reserva.Persistance.Exceptions;
+using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
 
 namespace BoletoBus.Reserva.Persistance.Repositories
@@ -9,10 +10,12 @@ namespace BoletoBus.Reserva.Persistance.Repositories
     public class ReservaRepository : IReservaRepository
     {
         private readonly BoletoBusContext context;
+        private readonly ILogger<ReservaRepository> logger;
 
-        public ReservaRepository(BoletoBusContext context)
+        public ReservaRepository(BoletoBusContext context, ILogger<ReservaRepository> logger)
         {
             this.context = context;
+            this.logger = logger;
         }
 
         public void Agregar(Reservas entity)
@@ -28,6 +31,7 @@ namespace BoletoBus.Reserva.Persistance.Repositories
 
             this.context.Add(reserva);
             this.context.SaveChanges();
+            this.logger.LogInformation("Reserva agregada: {ReservaId}", reserva.Id);
         }
 
         public void Editar(Reservas entity)
@@ -41,6 +45,7 @@ namespace BoletoBus.Reserva.Persistance.Repositories
 
             this.context.Update(reserva);
             this.context.SaveChanges();
+            this.logger.LogInformation("Reserva editada: {ReservaId}", reserva.Id);
         }
 
         public void Eliminar(Reservas entity)
@@ -49,6 +54,7 @@ namespace BoletoBus.Reserva.Persistance.Repositories
 
             this.context.Reserva.Remove(reserva);
             this.context.SaveChanges();
+            this.logger.LogInformation("Reserva eliminada: {ReservaId}", reserva.Id);
         }
 
         public bool Exists(Expression<Func<Reservas, bool>> filter)
@@ -58,7 +64,7 @@ namespace BoletoBus.Reserva.Persistance.Repositories
 
         public List<Reservas> GetAll()
         {
-            return this.context.Reserva.Select(reserva => new Reservas()
+            var reservas = this.context.Reserva.Select(reserva => new Reservas()
             {
                 Id = reserva.Id,
                 IdViaje = reserva.IdViaje,
@@ -67,11 +73,15 @@ namespace BoletoBus.Reserva.Persistance.Repositories
                 MontoTotal = reserva.MontoTotal,
                 FechaCreacion = reserva.FechaCreacion
             }).ToList();
+
+            this.logger.LogInformation("{Count} reservas encontradas", reservas.Count);
+            return reservas;
         }
 
         public Reservas GetEntityBy(int id)
         {
             var reserva = GetReservaId(id);
+            this.logger.LogInformation("Reserva encontrada: {ReservaId}", reserva.Id);
             return new Reservas()
             {
                 Id = reserva.Id,
@@ -85,7 +95,7 @@ namespace BoletoBus.Reserva.Persistance.Repositories
 
         public List<Reservas> GetReservasByID(int IdReserva)
         {
-            return this.context.Reserva.Where(r => r.Id == IdReserva).Select(reserva => new Reservas()
+            var reservas = this.context.Reserva.Where(r => r.Id == IdReserva).Select(reserva => new Reservas()
             {
                 Id = reserva.Id,
                 IdViaje = reserva.IdViaje,
@@ -94,6 +104,9 @@ namespace BoletoBus.Reserva.Persistance.Repositories
                 MontoTotal = reserva.MontoTotal,
                 FechaCreacion = reserva.FechaCreacion
             }).ToList();
+
+            this.logger.LogInformation("{Count} reservas encontradas con ID: {IdReserva}", reservas.Count, IdReserva);
+            return reservas;
         }
 
         private Reservas GetReservaId(int idReserva)
@@ -101,6 +114,7 @@ namespace BoletoBus.Reserva.Persistance.Repositories
             var reserva = this.context.Reserva.Find(idReserva);
             if (reserva == null)
             {
+                this.logger.LogWarning("Reserva no encontrada: {IdReserva}", idReserva);
                 throw new ReservaException("Reserva no encontrada");
             }
             return reserva;
