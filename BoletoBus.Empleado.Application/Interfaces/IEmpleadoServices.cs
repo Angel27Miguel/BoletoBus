@@ -10,10 +10,10 @@ namespace BoletoBus.Empleado.Application.Interfaces
         ServiceResult GetEmpleados();
         ServiceResult GetEmpleado(int id);
 
-        ServiceResult EditarEmpleado(EmpleadosEditarModel empleadoEditar);
+        ServiceResult EditarEmpleado(EmpleadosEditar empleadoEditar);
 
-        ServiceResult EliminarEmpleado(EmpleadosEliminarModel empleadoEliminar);
+        ServiceResult EliminarEmpleado(EmpleadosEliminar empleadoEliminar);
 
-        ServiceResult GuardarEmpleado(EmpleadosGuardarModel empleadoGuardar);
+        ServiceResult GuardarEmpleado(EmpleadosGuardar empleadoGuardar);
     }
 }

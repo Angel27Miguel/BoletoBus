@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BoletoBus.Empleado.Persistance\BoletoBus.Empleado.Persistance.csproj" />
+    <ProjectReference Include="..\BoletoBus.Empleado.IOC\BoletoBus.Empleado.IOC.csproj" />
   </ItemGroup>
 
 </Project>

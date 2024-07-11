@@ -30,11 +30,11 @@ namespace BoletoBus.Empleado.Application.Services
                 return result;
             }
 
-            if (empleado is EmpleadosEditarModel editarModel)
+            if (empleado is EmpleadosEditar editarModel)
             {
                 return ValidarCamposEmpleado(editarModel.Nombre, editarModel.Cargo);
             }
-            else if (empleado is EmpleadosGuardarModel guardarModel)
+            else if (empleado is EmpleadosGuardar guardarModel)
             {
                 return ValidarCamposEmpleado(guardarModel.Nombre, guardarModel.Cargo);
             }
@@ -105,7 +105,7 @@ namespace BoletoBus.Empleado.Application.Services
             return result;
         }
 
-        public ServiceResult EditarEmpleado(EmpleadosEditarModel empleadoEditar)
+        public ServiceResult EditarEmpleado(EmpleadosEditar empleadoEditar)
         {
             ServiceResult result = ValidarEmpleado(empleadoEditar);
 
@@ -133,7 +133,7 @@ namespace BoletoBus.Empleado.Application.Services
             return result;
         }
 
-        public ServiceResult EliminarEmpleado(EmpleadosEliminarModel empleadoEliminar)
+        public ServiceResult EliminarEmpleado(EmpleadosEliminar empleadoEliminar)
         {
             ServiceResult result = new ServiceResult();
 
@@ -163,7 +163,7 @@ namespace BoletoBus.Empleado.Application.Services
             return result;
         }
 
-        public ServiceResult GuardarEmpleado(EmpleadosGuardarModel empleadoGuardar)
+        public ServiceResult GuardarEmpleado(EmpleadosGuardar empleadoGuardar)
         {
             ServiceResult result = ValidarEmpleado(empleadoGuardar);
 

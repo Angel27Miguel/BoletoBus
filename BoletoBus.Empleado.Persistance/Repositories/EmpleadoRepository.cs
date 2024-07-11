@@ -11,13 +11,11 @@ namespace BoletoBus.Empleado.Persistance.Repositories
     {
         private readonly BoletoBusContext context;
         private readonly ILogger<EmpleadoRepository> logger;
-        private readonly IEmpleadoRepository empleadoRepository;
 
-        public EmpleadoRepository(BoletoBusContext context, ILogger<EmpleadoRepository> logger, IEmpleadoRepository empleadoRepository)
+        public EmpleadoRepository(BoletoBusContext context, ILogger<EmpleadoRepository> logger)
         {
             this.context = context;
             this.logger = logger;
-            this.empleadoRepository = empleadoRepository;
         }
 
         private Empleados GetEmpleadoById(int idEmpleado)

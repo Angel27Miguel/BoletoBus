@@ -8,7 +8,7 @@ namespace BoletoBus.Empleado.IOC.Dependencies
 {
     public static class EmpleadoDependency
     {
-        public static void GuardarEmpleadoDependencies(this ServiceCollection services)
+        public static void AddEmpleadoDependencies(this IServiceCollection services)
         {
             #region "Repositorios"
             services.AddScoped<IEmpleadoRepository, EmpleadoRepository>();
