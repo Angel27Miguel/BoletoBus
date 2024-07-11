@@ -1,6 +1,4 @@
-using BoletoBus.Empleado.Domain.Interfaces;
 using BoletoBus.Empleado.Persistance.Context;
-using BoletoBus.Empleado.Persistance.Repositories;
 using BoletoBus.Empleado.IOC.Dependencies;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +9,6 @@ builder.Services.AddDbContext<BoletoBusContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("BoletoBusContext")));
 
 //Agregar depemdencia
-//builder.Services.AddScoped<IEmpleadoRepository, EmpleadoRepository>();
 builder.Services.AddEmpleadoDependencies();
 
 
