@@ -86,6 +86,7 @@ namespace BoletoBus.Viaje.Persistance.Repositories
                 Precio = viaje.Precio,
                 TotalAsientos = viaje.TotalAsientos,
                 AsientosReservados = viaje.AsientosReservados,
+                AsientoDisponibles = viaje.AsientoDisponibles, 
                 FechaCreacion = viaje.FechaCreacion
             }).ToList();
 
@@ -109,6 +110,7 @@ namespace BoletoBus.Viaje.Persistance.Repositories
                 Precio = viaje.Precio,
                 TotalAsientos = viaje.TotalAsientos,
                 AsientosReservados = viaje.AsientosReservados,
+                AsientoDisponibles = viaje.AsientoDisponibles, 
                 FechaCreacion = viaje.FechaCreacion
             };
         }
@@ -127,6 +129,7 @@ namespace BoletoBus.Viaje.Persistance.Repositories
                 Precio = viaje.Precio,
                 TotalAsientos = viaje.TotalAsientos,
                 AsientosReservados = viaje.AsientosReservados,
+                AsientoDisponibles = viaje.AsientoDisponibles, 
                 FechaCreacion = viaje.FechaCreacion
             }).ToList();
 
