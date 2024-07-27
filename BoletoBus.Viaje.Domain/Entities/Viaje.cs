@@ -44,6 +44,9 @@ namespace BoletoBus.Viaje.Domain.Entities
         [Column("AsientoDisponibles")]
         public int AsientoDisponibles { get; set; }
 
+        [Column("FechaCreacion")]
+        public override DateTime FechaCreacion { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         #endregion
 
 
