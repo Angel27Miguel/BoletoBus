@@ -26,8 +26,8 @@ namespace BoletoBus.Reserva.Domain.Entities
         public decimal MontoTotal { get; set; }
 
         [Column("FechaCreacion")]
-        public override DateTime FechaCreacion { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
+       // public  DateTime FechaCreacion { get; set; }
+        public override DateTime FechaCreacion { get; set; }
         #endregion
     }
 }
