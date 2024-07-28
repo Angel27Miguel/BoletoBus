@@ -1,6 +1,7 @@
 ﻿using BoletoBus.Web.Models.EmpleadosModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace BoletoBus.Web.Controllers
 {
@@ -12,6 +13,7 @@ namespace BoletoBus.Web.Controllers
         public EmpleadoController()
         {
             this.httpHandler = new HttpClientHandler();
+            this.httpHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyError) => { return true; };
 
         }
         public async Task<ActionResult> Index()
@@ -78,38 +80,61 @@ namespace BoletoBus.Web.Controllers
 
     // POST: EmpleadoController/Create
     [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult Create(EmpleadoGuardarModel empleadoGuardar)
+        [ValidateAntiForgeryToken]
+    public async Task<ActionResult> Create(EmpleadoGuardarModel empleadoGuardar)
     {
         try
         {
-            return RedirectToAction(nameof(Index));
-        }
+                EmpleadoGetResult empleadoGetResult = new EmpleadoGetResult();
+
+                using (var httpClient = new HttpClient(this.httpHandler))
+                {
+                    var url = $"http://localhost:5297/api/Empleado/GuardarEmpleado";
+
+
+                    using (var response = await httpClient.GetAsync(url))
+                    {
+                        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            string apiResponse = await response.Content.ReadAsStringAsync();
+
+                            empleadoGetResult = JsonConvert.DeserializeObject<EmpleadoGetResult>(apiResponse);
+
+                            if (!empleadoGetResult.success)
+                            {
+                                ViewBag.Massage = empleadoGetResult;
+                                return View();
+                            }
+                        }
+                    }
+                }
+                return View(empleadoGetResult.date);
+            }
         catch
         {
             return View();
         }
     }
 
-    //    // GET: EmpleadoController/Edit/5
-    //    public ActionResult Edit(int id)
-    //    {
-    //        return View();
-    //    }
+        // GET: EmpleadoController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
 
-    //    // POST: EmpleadoController/Edit/5
-    //    [HttpPost]
-    //    [ValidateAntiForgeryToken]
-    //    public ActionResult Edit(int id, IFormCollection collection)
-    //    {
-    //        try
-    //        {
-    //            return RedirectToAction(nameof(Index));
-    //        }
-    //        catch
-    //        {
-    //            return View();
-    //        }
-    //    }
-    //}
+        // POST: EmpleadoController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+    }
 }
