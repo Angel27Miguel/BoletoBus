@@ -2,13 +2,7 @@
 
 namespace BoletoBus.Web.Models.EmpleadosModels
 {
-    public class EmpleadoGetResult : BaseResult<EmpleadoGetModel>
+    public class EmpleadoGuardarResult : BaseResult<EmpleadoGuardarModel>
     {
     }
-
-
 }
-
-
-
-

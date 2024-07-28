@@ -1,4 +1,5 @@
 ﻿using BoletoBus.Web.Models.EmpleadosModels;
+using BoletoBus.Web.Models.Result;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
@@ -40,8 +41,16 @@ namespace BoletoBus.Web.Controllers
                     }
                 }
             }
+
+            if (empleadoGetList.date == null)
+            {
+                ViewBag.Massage = empleadoGetList;
+                return View();
+            }
+
             return View(empleadoGetList.date);
         }
+
 
         // GET: EmpleadoController/Details/5
         public async Task<ActionResult> Details(int id)
@@ -85,31 +94,34 @@ namespace BoletoBus.Web.Controllers
     {
         try
         {
-                EmpleadoGetResult empleadoGetResult = new EmpleadoGetResult();
+                EmpleadoGuardarResult empleadoGuardarResult = new EmpleadoGuardarResult();
 
                 using (var httpClient = new HttpClient(this.httpHandler))
                 {
                     var url = $"http://localhost:5297/api/Empleado/GuardarEmpleado";
 
 
-                    using (var response = await httpClient.GetAsync(url))
+                    using (var response = await httpClient.PostAsJsonAsync<EmpleadoGuardarModel>(url, empleadoGuardar))
                     {
                         if (response.StatusCode == System.Net.HttpStatusCode.OK)
                         {
                             string apiResponse = await response.Content.ReadAsStringAsync();
 
-                            empleadoGetResult = JsonConvert.DeserializeObject<EmpleadoGetResult>(apiResponse);
+                            empleadoGuardarResult = JsonConvert.DeserializeObject<EmpleadoGuardarResult>(apiResponse);
 
-                            if (!empleadoGetResult.success)
+                            if (!empleadoGuardarResult.success)
                             {
-                                ViewBag.Massage = empleadoGetResult;
+                                ViewBag.Massage = empleadoGuardarResult;
                                 return View();
                             }
                         }
                     }
                 }
-                return View(empleadoGetResult.date);
-            }
+
+                return RedirectToAction(nameof (Index));
+        }
+
+            
         catch
         {
             return View();
