@@ -3,11 +3,13 @@
     public class EmpleadoGetModel 
     {
         #region "Atributos"
-        public int id { get; set; }
-        public string nombre { get; set; }
-        public string cargo { get; set; }
+        
+            public int idEmpleado { get; set; }
+            public string? nombre { get; set; }
+            public string? cargo { get; set; }
+     }
 
 
         #endregion
-    }
+    
 }

@@ -51,6 +51,8 @@ namespace BoletoBus.Web.Controllers
         { 
             EmpleadoGetResult empleadoGetResult = new EmpleadoGetResult();
 
+            HttpClient client = new HttpClient(this.httpHandler);
+
             using (var httpClient = new HttpClient(this.httpHandler))
             {
                 var url = $"http://localhost:5297/api/Empleado/GetEmpleadoById?id={id}";
@@ -124,10 +126,34 @@ namespace BoletoBus.Web.Controllers
     }
 
         // GET: EmpleadoController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            EmpleadoGetResult empleadoGetResult = new EmpleadoGetResult();
+
+            HttpClient client = new HttpClient(this.httpHandler);
+
+            using (var httpClient = new HttpClient(this.httpHandler))
+            {
+                var url = $"http://localhost:5297/api/Empleado/GetEmpleadoById?id={id}";
+                using (var response = await httpClient.GetAsync(url))
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+
+                        empleadoGetResult = JsonConvert.DeserializeObject<EmpleadoGetResult>(apiResponse);
+
+                        if (!empleadoGetResult.success)
+                        {
+                            ViewBag.Massage = empleadoGetResult;
+                            return View();
+                        }
+                    }
+                }
+            }
+            return View(empleadoGetResult.data);
         }
+    
 
         // POST: EmpleadoController/Edit/5
         [HttpPost]
