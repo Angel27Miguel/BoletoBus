@@ -16,4 +16,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\ReservaModels\" />
+    <Folder Include="Models\ViajesModels\" />
+  </ItemGroup>
+
 </Project>
