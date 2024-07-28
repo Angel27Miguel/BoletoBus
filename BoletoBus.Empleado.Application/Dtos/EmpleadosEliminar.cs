@@ -2,7 +2,7 @@
 
 namespace BoletoBus.Empleado.Application.Dtos
 {
-    public class EmpleadosEliminar : EmpleadoBase
+    public class EmpleadosEliminar : EmpleadoGetModel
     {
     }
 }

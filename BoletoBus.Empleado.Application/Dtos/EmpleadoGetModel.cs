@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BoletoBus.Empleado.Application.Dtos
 {
-    public abstract class EmpleadoBase
+    public  class EmpleadoGetModel 
     {
         #region "Atributos"
 

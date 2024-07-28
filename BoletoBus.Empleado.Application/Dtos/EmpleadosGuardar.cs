@@ -2,7 +2,7 @@
 
 namespace BoletoBus.Empleado.Application.Dtos
 {
-    public class EmpleadosGuardar : EmpleadoBase
+    public class EmpleadosGuardar : EmpleadoGetModel
     {
 
     }
