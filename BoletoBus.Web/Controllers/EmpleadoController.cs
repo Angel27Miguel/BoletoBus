@@ -41,15 +41,9 @@ namespace BoletoBus.Web.Controllers
                     }
                 }
             }
-
-            if (empleadoGetList.date == null)
-            {
-                ViewBag.Massage = empleadoGetList;
-                return View();
-            }
-
-            return View(empleadoGetList.date);
+            return View(empleadoGetList.data);
         }
+    
 
 
         // GET: EmpleadoController/Details/5
@@ -76,8 +70,9 @@ namespace BoletoBus.Web.Controllers
                     }
                 }
             }
-            return View(empleadoGetResult.date);
+            return View(empleadoGetResult.data);
         }
+    
 
     
 
