@@ -41,43 +41,43 @@ namespace BoletoBus.Web.Controllers
             }
             return View(empleadoGetList.Data);
         }
-    
+
 
 
         // GET: EmpleadoController/Details/5
         public async Task<ActionResult> Details(int id)
-        { 
+        {
             EmpleadoGetResult empleadoGetResult = new EmpleadoGetResult();
-
-            HttpClient client = new HttpClient(this.httpHandler);
 
             using (var httpClient = new HttpClient(this.httpHandler))
             {
                 var url = $"http://localhost:5297/api/Empleado/GetEmpleadoById?id={id}";
+
                 using (var response = await httpClient.GetAsync(url))
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         string apiResponse = await response.Content.ReadAsStringAsync();
-
                         empleadoGetResult = JsonConvert.DeserializeObject<EmpleadoGetResult>(apiResponse);
 
                         if (!empleadoGetResult.Success)
                         {
-                            ViewBag.Massage = empleadoGetResult;
+                            ViewBag.Message = empleadoGetResult.Message;
                             return View();
                         }
                     }
                 }
             }
+
             return View(empleadoGetResult.Data);
         }
-    
 
-    
 
-    // GET: EmpleadoController/Create
-    public ActionResult Create()
+
+
+
+        // GET: EmpleadoController/Create
+        public ActionResult Create()
     {
         return View();
     }
@@ -126,46 +126,70 @@ namespace BoletoBus.Web.Controllers
         // GET: EmpleadoController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            EmpleadoGetResult empleadoGetResult = new EmpleadoGetResult();
-
-            HttpClient client = new HttpClient(this.httpHandler);
+            EmpleadoEditarGetResult empleadoEditarGetResult = new EmpleadoEditarGetResult();
 
             using (var httpClient = new HttpClient(this.httpHandler))
             {
                 var url = $"http://localhost:5297/api/Empleado/GetEmpleadoById?id={id}";
+
                 using (var response = await httpClient.GetAsync(url))
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         string apiResponse = await response.Content.ReadAsStringAsync();
+                        empleadoEditarGetResult = JsonConvert.DeserializeObject<EmpleadoEditarGetResult>(apiResponse);
 
-                        empleadoGetResult = JsonConvert.DeserializeObject<EmpleadoGetResult>(apiResponse);
-
-                        if (!empleadoGetResult.Success)
+                        if (!empleadoEditarGetResult.Success)
                         {
-                            ViewBag.Massage = empleadoGetResult;
+                            ViewBag.Message = empleadoEditarGetResult.Message;
                             return View();
                         }
                     }
                 }
             }
-            return View(empleadoGetResult.Data);
+
+            return View(empleadoEditarGetResult.Data);
         }
-    
+
+
 
         // POST: EmpleadoController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+ 
+        public async Task<ActionResult> Edit(int id, EmpleadosEditar empleadoActualizar)
         {
             try
             {
+                EmpleadoEditarGetResult empleadoGuardarResult = new EmpleadoEditarGetResult();
+
+                using (var httpClient = new HttpClient(this.httpHandler))
+                {
+                    var url = $"http://localhost:5297/api/Empleado/ActualizarEmpleado";
+
+                    using (var response = await httpClient.PutAsJsonAsync(url, empleadoActualizar))
+                    {
+                        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            string apiResponse = await response.Content.ReadAsStringAsync();
+                            empleadoGuardarResult = JsonConvert.DeserializeObject<EmpleadoEditarGetResult>(apiResponse);
+
+                            if (!empleadoGuardarResult.Success)
+                            {
+                                ViewBag.Message = empleadoGuardarResult.Message;
+                                return View(empleadoActualizar);
+                            }
+                        }
+                    }
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(empleadoActualizar);
             }
         }
+
     }
 }
