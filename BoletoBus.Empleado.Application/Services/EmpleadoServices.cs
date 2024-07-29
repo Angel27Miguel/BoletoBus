@@ -1,4 +1,4 @@
-﻿using BoletoBus.Empleado.Application.Base;
+﻿using BoletoBus.Common;
 using BoletoBus.Empleado.Application.Dtos;
 using BoletoBus.Empleado.Application.Interfaces;
 using BoletoBus.Empleado.Domain.Entities;
