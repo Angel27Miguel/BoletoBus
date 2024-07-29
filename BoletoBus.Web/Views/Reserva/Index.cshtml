@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BoletoBus.Reserva.Application.Dtos.ReservaMode>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Reserva list</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdReserva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdViaje)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPasajero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AsientosReservados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MontoTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCreacion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdReserva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdViaje)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPasajero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AsientosReservados)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MontoTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCreacion)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

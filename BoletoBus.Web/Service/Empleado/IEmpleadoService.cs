@@ -1,7 +1,7 @@
 ﻿using BoletoBus.Empleado.Application.Dtos;
 using BoletoBus.Web.Models.EmpleadosModels;
 
-namespace BoletoBus.Web.Service
+namespace BoletoBus.Web.Service.Empleado
 {
     public interface IEmpleadoService
     {

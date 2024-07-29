@@ -1,5 +1,5 @@
 ﻿using BoletoBus.Empleado.Application.Dtos;
-using BoletoBus.Web.Service;
+using BoletoBus.Web.Service.Empleado;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 namespace BoletoBus.Web.Controllers

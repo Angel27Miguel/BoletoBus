@@ -2,7 +2,7 @@
 using BoletoBus.Web.Models.EmpleadosModels;
 using Newtonsoft.Json;
 
-namespace BoletoBus.Web.Service
+namespace BoletoBus.Web.Service.Empleado
 {
     public class EmpleadoService : IEmpleadoService
     {
@@ -16,7 +16,7 @@ namespace BoletoBus.Web.Service
             _configuration = configuration;
             _logger = logger;
             _clientFactory = clientFactory;
-            _baseUrl = _configuration["apiConfig:baseUrl"];
+            _baseUrl = _configuration["apiConfig:baseUrlEmpleado"];
         }
 
         public async Task<EmpleadoGetListResult> GetEmpleados()
@@ -26,7 +26,7 @@ namespace BoletoBus.Web.Service
             {
                 using (var httpClient = _clientFactory.CreateClient())
                 {
-                    var response = await httpClient.GetAsync($"{_baseUrl}/Empleado/GetEmpleado");
+                    var response = await httpClient.GetAsync($"{_baseUrl}GetEmpleado");
                     response.EnsureSuccessStatusCode();
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     result = JsonConvert.DeserializeObject<EmpleadoGetListResult>(apiResponse);
