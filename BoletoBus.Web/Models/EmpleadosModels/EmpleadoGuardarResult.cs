@@ -1,9 +1,9 @@
-﻿using BoletoBus.Empleado.Application.Dtos;
-using BoletoBus.Web.Models.Result;
+﻿using BoletoBus.Empleado.Application.Base;
+using BoletoBus.Empleado.Application.Dtos;
 
 namespace BoletoBus.Web.Models.EmpleadosModels
 {
-    public class EmpleadoGuardarResult : BaseResult<EmpleadosGuardar>
+    public class EmpleadoGuardarResult : ServiceResult<EmpleadosGuardar>
     {
     }
 }

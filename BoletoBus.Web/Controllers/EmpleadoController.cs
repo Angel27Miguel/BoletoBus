@@ -1,10 +1,7 @@
 ﻿using BoletoBus.Empleado.Application.Dtos;
 using BoletoBus.Web.Models.EmpleadosModels;
-using BoletoBus.Web.Models.Result;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Threading.Tasks;
-
 namespace BoletoBus.Web.Controllers
 {
     public class EmpleadoController : Controller
@@ -107,7 +104,7 @@ namespace BoletoBus.Web.Controllers
 
                             empleadoGuardarResult = JsonConvert.DeserializeObject<EmpleadoGuardarResult>(apiResponse);
 
-                            if (!empleadoGuardarResult.success)
+                            if (!empleadoGuardarResult.Success)
                             {
                                 ViewBag.Massage = empleadoGuardarResult;
                                 return View();
