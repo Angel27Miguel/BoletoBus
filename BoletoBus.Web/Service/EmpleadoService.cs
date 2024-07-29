@@ -20,12 +20,13 @@ namespace BoletoBus.Web.Service
             return JsonConvert.DeserializeObject<EmpleadoGetListResult>(apiResponse);
         }
 
-        public async Task<EmpleadoGetResult> GetEmpleadoById(int id)
+        public async Task<EmpleadoGetDetailsResult> GetEmpleadoById(int id)
         {
             var response = await _httpClient.GetAsync($"http://localhost:5297/api/Empleado/GetEmpleadoById?id={id}");
             var apiResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<EmpleadoGetResult>(apiResponse);
+            return JsonConvert.DeserializeObject<EmpleadoGetDetailsResult>(apiResponse);
         }
+
 
         public async Task<EmpleadoGuardarResult> GuardarEmpleado(EmpleadosGuardar empleadoGuardar)
         {
