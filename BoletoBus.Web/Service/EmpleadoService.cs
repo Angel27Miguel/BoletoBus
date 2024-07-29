@@ -6,40 +6,107 @@ namespace BoletoBus.Web.Service
 {
     public class EmpleadoService : IEmpleadoService
     {
-        private readonly HttpClient _httpClient;
+        private readonly IConfiguration _configuration;
+        private readonly ILogger<EmpleadoService> _logger;
+        private readonly IHttpClientFactory _clientFactory;
+        private readonly string _baseUrl;
 
-        public EmpleadoService(HttpClient httpClient)
+        public EmpleadoService(IConfiguration configuration, ILogger<EmpleadoService> logger, IHttpClientFactory clientFactory)
         {
-            _httpClient = httpClient;
+            _configuration = configuration;
+            _logger = logger;
+            _clientFactory = clientFactory;
+            _baseUrl = _configuration["apiConfig:baseUrl"];
         }
 
         public async Task<EmpleadoGetListResult> GetEmpleados()
         {
-            var response = await _httpClient.GetAsync("http://localhost:5297/api/Empleado/GetEmpleado");
-            var apiResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<EmpleadoGetListResult>(apiResponse);
+            var result = new EmpleadoGetListResult();
+            try
+            {
+                using (var httpClient = _clientFactory.CreateClient())
+                {
+                    var response = await httpClient.GetAsync($"{_baseUrl}/Empleado/GetEmpleado");
+                    response.EnsureSuccessStatusCode();
+                    var apiResponse = await response.Content.ReadAsStringAsync();
+                    result = JsonConvert.DeserializeObject<EmpleadoGetListResult>(apiResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error obteniendo la lista de empleados");
+                result.Success = false;
+                result.Message = "Error obteniendo la lista de empleados.";
+            }
+            return result;
         }
 
         public async Task<EmpleadoGetDetailsResult> GetEmpleadoById(int id)
         {
-            var response = await _httpClient.GetAsync($"http://localhost:5297/api/Empleado/GetEmpleadoById?id={id}");
-            var apiResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<EmpleadoGetDetailsResult>(apiResponse);
+            var result = new EmpleadoGetDetailsResult();
+            try
+            {
+                using (var httpClient = _clientFactory.CreateClient())
+                {
+                    var response = await httpClient.GetAsync($"{_baseUrl}/Empleado/GetEmpleadoById?id={id}");
+                    response.EnsureSuccessStatusCode();
+                    var apiResponse = await response.Content.ReadAsStringAsync();
+                    result = JsonConvert.DeserializeObject<EmpleadoGetDetailsResult>(apiResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error obteniendo el empleado con ID {id}");
+                result.Success = false;
+                result.Message = $"Error obteniendo el empleado con ID {id}.";
+            }
+            return result;
         }
-
 
         public async Task<EmpleadoGuardarResult> GuardarEmpleado(EmpleadosGuardar empleadoGuardar)
         {
-            var response = await _httpClient.PostAsJsonAsync("http://localhost:5297/api/Empleado/GuardarEmpleado", empleadoGuardar);
-            var apiResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<EmpleadoGuardarResult>(apiResponse);
+            var result = new EmpleadoGuardarResult();
+            try
+            {
+                using (var httpClient = _clientFactory.CreateClient())
+                {
+                    var content = new StringContent(JsonConvert.SerializeObject(empleadoGuardar), System.Text.Encoding.UTF8, "application/json");
+                    var response = await httpClient.PostAsync($"{_baseUrl}/Empleado/GuardarEmpleado", content);
+                    response.EnsureSuccessStatusCode();
+                    var apiResponse = await response.Content.ReadAsStringAsync();
+                    result = JsonConvert.DeserializeObject<EmpleadoGuardarResult>(apiResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error guardando el empleado");
+                result.Success = false;
+                result.Message = "Error guardando el empleado.";
+            }
+            return result;
         }
 
         public async Task<EmpleadoEditarGetResult> ActualizarEmpleado(EmpleadosEditar empleadoActualizar)
         {
-            var response = await _httpClient.PutAsJsonAsync("http://localhost:5297/api/Empleado/ActualizarEmpleado", empleadoActualizar);
-            var apiResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<EmpleadoEditarGetResult>(apiResponse);
+            var result = new EmpleadoEditarGetResult();
+            try
+            {
+                using (var httpClient = _clientFactory.CreateClient())
+                {
+                    var content = new StringContent(JsonConvert.SerializeObject(empleadoActualizar), System.Text.Encoding.UTF8, "application/json");
+                    var response = await httpClient.PutAsync($"{_baseUrl}/Empleado/ActualizarEmpleado", content);
+                    response.EnsureSuccessStatusCode();
+                    var apiResponse = await response.Content.ReadAsStringAsync();
+                    result = JsonConvert.DeserializeObject<EmpleadoEditarGetResult>(apiResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error actualizando el empleado");
+                result.Success = false;
+                result.Message = "Error actualizando el empleado.";
+            }
+            return result;
         }
     }
 }
