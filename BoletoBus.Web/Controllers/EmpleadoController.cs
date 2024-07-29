@@ -104,41 +104,47 @@ namespace BoletoBus.Web.Controllers
         [ValidateAntiForgeryToken]
     public async Task<ActionResult> Create(EmpleadosGuardar empleadoGuardar)
     {
-            var empleado = await empleadoService.GuardarEmpleado(empleadoGuardar);
-            if (!empleado.Success)
+            try
             {
+                var empleado = await empleadoService.GuardarEmpleado(empleadoGuardar);
+                if (!empleado.Success)
+                {
                 ViewBag.Message = empleado.Message;
+                return View();
+                }
+
+
+
+                //EmpleadoGuardarResult empleadoGuardarResult = new EmpleadoGuardarResult();
+
+                //using (var httpClient = new HttpClient(this.httpHandler))
+                //{
+                //    var url = $"http://localhost:5297/api/Empleado/GuardarEmpleado";
+
+
+                //    using (var response = await httpClient.PostAsJsonAsync<EmpleadosGuardar>(url, empleadoGuardar))
+                //    {
+                //        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                //        {
+                //            string apiResponse = await response.Content.ReadAsStringAsync();
+
+                //            empleadoGuardarResult = JsonConvert.DeserializeObject<EmpleadoGuardarResult>(apiResponse);
+
+                //            if (!empleadoGuardarResult.Success)
+                //            {
+                //                ViewBag.Massage = empleadoGuardarResult;
+                //                return View();
+                //            }
+                //        }
+                //    }
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
                 return View();
             }
 
-
-            //try
-            //{
-            //EmpleadoGuardarResult empleadoGuardarResult = new EmpleadoGuardarResult();
-
-            //using (var httpClient = new HttpClient(this.httpHandler))
-            //{
-            //    var url = $"http://localhost:5297/api/Empleado/GuardarEmpleado";
-
-
-            //    using (var response = await httpClient.PostAsJsonAsync<EmpleadosGuardar>(url, empleadoGuardar))
-            //    {
-            //        if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            //        {
-            //            string apiResponse = await response.Content.ReadAsStringAsync();
-
-            //            empleadoGuardarResult = JsonConvert.DeserializeObject<EmpleadoGuardarResult>(apiResponse);
-
-            //            if (!empleadoGuardarResult.Success)
-            //            {
-            //                ViewBag.Massage = empleadoGuardarResult;
-            //                return View();
-            //            }
-            //        }
-            //    }
-            //}
-
-            return RedirectToAction(nameof (Index));
         }
 
     
