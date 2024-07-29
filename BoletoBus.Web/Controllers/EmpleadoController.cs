@@ -1,4 +1,5 @@
-﻿using BoletoBus.Web.Models.EmpleadosModels;
+﻿using BoletoBus.Empleado.Application.Dtos;
+using BoletoBus.Web.Models.EmpleadosModels;
 using BoletoBus.Web.Models.Result;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -33,7 +34,7 @@ namespace BoletoBus.Web.Controllers
 
                         empleadoGetList = JsonConvert.DeserializeObject<EmpleadoGetListResult>(apiResponse);
 
-                        if (!empleadoGetList.success)
+                        if (!empleadoGetList.Success)
                         {
                             ViewBag.Massage = empleadoGetList;
                             return View();
@@ -41,7 +42,7 @@ namespace BoletoBus.Web.Controllers
                     }
                 }
             }
-            return View(empleadoGetList.data);
+            return View(empleadoGetList.Data);
         }
     
 
@@ -64,7 +65,7 @@ namespace BoletoBus.Web.Controllers
 
                         empleadoGetResult = JsonConvert.DeserializeObject<EmpleadoGetResult>(apiResponse);
 
-                        if (!empleadoGetResult.success)
+                        if (!empleadoGetResult.Success)
                         {
                             ViewBag.Massage = empleadoGetResult;
                             return View();
@@ -72,7 +73,7 @@ namespace BoletoBus.Web.Controllers
                     }
                 }
             }
-            return View(empleadoGetResult.data);
+            return View(empleadoGetResult.Data);
         }
     
 
@@ -87,7 +88,7 @@ namespace BoletoBus.Web.Controllers
     // POST: EmpleadoController/Create
     [HttpPost]
         [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Create(EmpleadoGuardarModel empleadoGuardar)
+    public async Task<ActionResult> Create(EmpleadosGuardar empleadoGuardar)
     {
         try
         {
@@ -98,7 +99,7 @@ namespace BoletoBus.Web.Controllers
                     var url = $"http://localhost:5297/api/Empleado/GuardarEmpleado";
 
 
-                    using (var response = await httpClient.PostAsJsonAsync<EmpleadoGuardarModel>(url, empleadoGuardar))
+                    using (var response = await httpClient.PostAsJsonAsync<EmpleadosGuardar>(url, empleadoGuardar))
                     {
                         if (response.StatusCode == System.Net.HttpStatusCode.OK)
                         {
@@ -143,7 +144,7 @@ namespace BoletoBus.Web.Controllers
 
                         empleadoGetResult = JsonConvert.DeserializeObject<EmpleadoGetResult>(apiResponse);
 
-                        if (!empleadoGetResult.success)
+                        if (!empleadoGetResult.Success)
                         {
                             ViewBag.Massage = empleadoGetResult;
                             return View();
@@ -151,7 +152,7 @@ namespace BoletoBus.Web.Controllers
                     }
                 }
             }
-            return View(empleadoGetResult.data);
+            return View(empleadoGetResult.Data);
         }
     
 

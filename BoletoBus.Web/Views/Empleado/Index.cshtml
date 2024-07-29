@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BoletoBus.Web.Models.EmpleadosModels.EmpleadoGetModel>
+﻿@model IEnumerable<BoletoBus.Empleado.Application.Dtos.EmpleadoGetModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,13 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.idEmpleado)
+                @Html.DisplayNameFor(model => model.IdEmpleado)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.nombre)
+                @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.cargo)
+                @Html.DisplayNameFor(model => model.Cargo)
             </th>
             <th></th>
         </tr>
@@ -28,17 +28,17 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.idEmpleado)
+                @Html.DisplayFor(modelItem => item.IdEmpleado)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.nombre)
+                @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.cargo)
+                @Html.DisplayFor(modelItem => item.Cargo)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.idEmpleado }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.idEmpleado })
+                @Html.ActionLink("Edit", "Edit", new { id=item.IdEmpleado }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.IdEmpleado })
             </td>
         </tr>
 }

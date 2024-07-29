@@ -22,4 +22,8 @@
     <Folder Include="Models\ViajesModels\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BoletoBus.Empleado.Application\BoletoBus.Empleado.Application.csproj" />
+  </ItemGroup>
+
 </Project>
