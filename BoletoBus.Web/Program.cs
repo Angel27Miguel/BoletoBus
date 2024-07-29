@@ -1,7 +1,16 @@
+
+using BoletoBus.Web.Service;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpClient();
+
+builder.Services.AddTransient<IEmpleadoService, EmpleadoService>();
+
+//builder.Services.AddTransient<IEmpleadoService, EmpleadoService>();
 
 var app = builder.Build();
 

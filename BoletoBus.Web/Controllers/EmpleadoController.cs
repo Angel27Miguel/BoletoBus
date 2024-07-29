@@ -1,5 +1,5 @@
 ﻿using BoletoBus.Empleado.Application.Dtos;
-using BoletoBus.Web.Models.EmpleadosModels;
+using BoletoBus.Web.Service;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 namespace BoletoBus.Web.Controllers
@@ -8,37 +8,46 @@ namespace BoletoBus.Web.Controllers
     {
         // GET: EmpleadoController
         HttpClientHandler httpHandler = new HttpClientHandler();
+        private readonly IEmpleadoService empleadoService;
 
-        public EmpleadoController()
+        public EmpleadoController(IEmpleadoService empleadoService)
         {
+            this.empleadoService = empleadoService;
             this.httpHandler = new HttpClientHandler();
             this.httpHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyError) => { return true; };
 
         }
         public async Task<ActionResult> Index()
         {
-            EmpleadoGetListResult empleadoGetList = new EmpleadoGetListResult();
-
-            using (var httpClient = new HttpClient(this.httpHandler))
+            var empleadoGetList = await empleadoService.GetEmpleados();
+            if (!empleadoGetList.Success)
             {
-                var url = "http://localhost:5297/api/Empleado/GetEmpleado";
-
-                using (var response = await httpClient.GetAsync(url))
-                {
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                    {
-                        string apiResponse = await response.Content.ReadAsStringAsync();
-
-                        empleadoGetList = JsonConvert.DeserializeObject<EmpleadoGetListResult>(apiResponse);
-
-                        if (!empleadoGetList.Success)
-                        {
-                            ViewBag.Massage = empleadoGetList;
-                            return View();
-                        }
-                    }
-                }
+                ViewBag.Message = empleadoGetList.Message;
+                return View();
             }
+
+            //EmpleadoGetListResult empleadoGetList = new EmpleadoGetListResult();
+
+            //using (var httpClient = new HttpClient(this.httpHandler))
+            //{
+            //    var url = "http://localhost:5297/api/Empleado/GetEmpleado";
+
+            //    using (var response = await httpClient.GetAsync(url))
+            //    {
+            //        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            //        {
+            //            string apiResponse = await response.Content.ReadAsStringAsync();
+
+            //            empleadoGetList = JsonConvert.DeserializeObject<EmpleadoGetListResult>(apiResponse);
+
+            //            if (!empleadoGetList.Success)
+            //            {
+            //                ViewBag.Massage = empleadoGetList;
+            //                return View();
+            //            }
+            //        }
+            //    }
+            //}
             return View(empleadoGetList.Data);
         }
 
@@ -47,29 +56,37 @@ namespace BoletoBus.Web.Controllers
         // GET: EmpleadoController/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            EmpleadoGetResult empleadoGetResult = new EmpleadoGetResult();
-
-            using (var httpClient = new HttpClient(this.httpHandler))
+            var empleadoGetById = await empleadoService.GetEmpleadoById(id);
+            if (!empleadoGetById.Success)
             {
-                var url = $"http://localhost:5297/api/Empleado/GetEmpleadoById?id={id}";
-
-                using (var response = await httpClient.GetAsync(url))
-                {
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                    {
-                        string apiResponse = await response.Content.ReadAsStringAsync();
-                        empleadoGetResult = JsonConvert.DeserializeObject<EmpleadoGetResult>(apiResponse);
-
-                        if (!empleadoGetResult.Success)
-                        {
-                            ViewBag.Message = empleadoGetResult.Message;
-                            return View();
-                        }
-                    }
-                }
+                ViewBag.Message = empleadoGetById.Message;
+                return View();
             }
 
-            return View(empleadoGetResult.Data);
+
+            //EmpleadoGetResult empleadoGetResult = new EmpleadoGetResult();
+
+            //using (var httpClient = new HttpClient(this.httpHandler))
+            //{
+            //    var url = $"http://localhost:5297/api/Empleado/GetEmpleadoById?id={id}";
+
+            //    using (var response = await httpClient.GetAsync(url))
+            //    {
+            //        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            //        {
+            //            string apiResponse = await response.Content.ReadAsStringAsync();
+            //            empleadoGetResult = JsonConvert.DeserializeObject<EmpleadoGetResult>(apiResponse);
+
+            //            if (!empleadoGetResult.Success)
+            //            {
+            //                ViewBag.Message = empleadoGetResult.Message;
+            //                return View();
+            //            }
+            //        }
+            //    }
+            //}
+
+            return View(empleadoGetById.Data);
         }
 
 
@@ -87,68 +104,79 @@ namespace BoletoBus.Web.Controllers
         [ValidateAntiForgeryToken]
     public async Task<ActionResult> Create(EmpleadosGuardar empleadoGuardar)
     {
-        try
-        {
-                EmpleadoGuardarResult empleadoGuardarResult = new EmpleadoGuardarResult();
+            var empleado = await empleadoService.GuardarEmpleado(empleadoGuardar);
+            if (!empleado.Success)
+            {
+                ViewBag.Message = empleado.Message;
+                return View();
+            }
 
-                using (var httpClient = new HttpClient(this.httpHandler))
-                {
-                    var url = $"http://localhost:5297/api/Empleado/GuardarEmpleado";
+
+            //try
+            //{
+            //EmpleadoGuardarResult empleadoGuardarResult = new EmpleadoGuardarResult();
+
+            //using (var httpClient = new HttpClient(this.httpHandler))
+            //{
+            //    var url = $"http://localhost:5297/api/Empleado/GuardarEmpleado";
 
 
-                    using (var response = await httpClient.PostAsJsonAsync<EmpleadosGuardar>(url, empleadoGuardar))
-                    {
-                        if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                        {
-                            string apiResponse = await response.Content.ReadAsStringAsync();
+            //    using (var response = await httpClient.PostAsJsonAsync<EmpleadosGuardar>(url, empleadoGuardar))
+            //    {
+            //        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            //        {
+            //            string apiResponse = await response.Content.ReadAsStringAsync();
 
-                            empleadoGuardarResult = JsonConvert.DeserializeObject<EmpleadoGuardarResult>(apiResponse);
+            //            empleadoGuardarResult = JsonConvert.DeserializeObject<EmpleadoGuardarResult>(apiResponse);
 
-                            if (!empleadoGuardarResult.Success)
-                            {
-                                ViewBag.Massage = empleadoGuardarResult;
-                                return View();
-                            }
-                        }
-                    }
-                }
+            //            if (!empleadoGuardarResult.Success)
+            //            {
+            //                ViewBag.Massage = empleadoGuardarResult;
+            //                return View();
+            //            }
+            //        }
+            //    }
+            //}
 
-                return RedirectToAction(nameof (Index));
+            return RedirectToAction(nameof (Index));
         }
 
-            
-        catch
-        {
-            return View();
-        }
-    }
+    
 
         // GET: EmpleadoController/Edit/5
         public async Task<ActionResult> Edit(int id)
+    {
+        var empleadoGetById = await empleadoService.GetEmpleadoById(id);
+        if (!empleadoGetById.Success)
         {
-            EmpleadoEditarGetResult empleadoEditarGetResult = new EmpleadoEditarGetResult();
+            ViewBag.Message = empleadoGetById.Message;
+            return View();
+        }
 
-            using (var httpClient = new HttpClient(this.httpHandler))
-            {
-                var url = $"http://localhost:5297/api/Empleado/GetEmpleadoById?id={id}";
 
-                using (var response = await httpClient.GetAsync(url))
-                {
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                    {
-                        string apiResponse = await response.Content.ReadAsStringAsync();
-                        empleadoEditarGetResult = JsonConvert.DeserializeObject<EmpleadoEditarGetResult>(apiResponse);
+        //EmpleadoEditarGetResult empleadoEditarGetResult = new EmpleadoEditarGetResult();
 
-                        if (!empleadoEditarGetResult.Success)
-                        {
-                            ViewBag.Message = empleadoEditarGetResult.Message;
-                            return View();
-                        }
-                    }
-                }
-            }
+        //using (var httpClient = new HttpClient(this.httpHandler))
+        //{
+        //    var url = $"http://localhost:5297/api/Empleado/GetEmpleadoById?id={id}";
 
-            return View(empleadoEditarGetResult.Data);
+        //    using (var response = await httpClient.GetAsync(url))
+        //    {
+        //        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+        //        {
+        //            string apiResponse = await response.Content.ReadAsStringAsync();
+        //            empleadoEditarGetResult = JsonConvert.DeserializeObject<EmpleadoEditarGetResult>(apiResponse);
+
+        //            if (!empleadoEditarGetResult.Success)
+        //            {
+        //                ViewBag.Message = empleadoEditarGetResult.Message;
+        //                return View();
+        //            }
+        //        }
+        //    }
+        //}
+
+        return View(empleadoGetById.Data);
         }
 
 
@@ -157,38 +185,46 @@ namespace BoletoBus.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
  
-        public async Task<ActionResult> Edit(int id, EmpleadosEditar empleadoActualizar)
+        public async Task<ActionResult> Edit(EmpleadosEditar empleadoActualizar)
         {
-            try
+            var result = await empleadoService.ActualizarEmpleado(empleadoActualizar);
+            if (!result.Success)
             {
-                EmpleadoEditarGetResult empleadoGuardarResult = new EmpleadoEditarGetResult();
-
-                using (var httpClient = new HttpClient(this.httpHandler))
-                {
-                    var url = $"http://localhost:5297/api/Empleado/ActualizarEmpleado";
-
-                    using (var response = await httpClient.PutAsJsonAsync(url, empleadoActualizar))
-                    {
-                        if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                        {
-                            string apiResponse = await response.Content.ReadAsStringAsync();
-                            empleadoGuardarResult = JsonConvert.DeserializeObject<EmpleadoEditarGetResult>(apiResponse);
-
-                            if (!empleadoGuardarResult.Success)
-                            {
-                                ViewBag.Message = empleadoGuardarResult.Message;
-                                return View(empleadoActualizar);
-                            }
-                        }
-                    }
-                }
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
+                ViewBag.Message = result.Message;
                 return View(empleadoActualizar);
             }
+
+
+            //try
+            //{
+            //    EmpleadoEditarGetResult empleadoGuardarResult = new EmpleadoEditarGetResult();
+
+            //    using (var httpClient = new HttpClient(this.httpHandler))
+            //    {
+            //        var url = $"http://localhost:5297/api/Empleado/ActualizarEmpleado";
+
+            //        using (var response = await httpClient.PutAsJsonAsync(url, empleadoActualizar))
+            //        {
+            //            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            //            {
+            //                string apiResponse = await response.Content.ReadAsStringAsync();
+            //                empleadoGuardarResult = JsonConvert.DeserializeObject<EmpleadoEditarGetResult>(apiResponse);
+
+            //                if (!empleadoGuardarResult.Success)
+            //                {
+            //                    ViewBag.Message = empleadoGuardarResult.Message;
+            //                    return View(empleadoActualizar);
+            //                }
+            //            }
+            //        }
+            //    }
+
+            return RedirectToAction(nameof(Index));
+            //}
+            //catch
+            //{
+            //    return View(empleadoActualizar);
+            //}
         }
 
     }
