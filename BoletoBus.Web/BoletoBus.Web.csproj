@@ -18,10 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\ViajesModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BoletoBus.Empleado.Application\BoletoBus.Empleado.Application.csproj" />
     <ProjectReference Include="..\BoletoBus.Reserva.Application\BoletoBus.Reserva.Application.csproj" />
     <ProjectReference Include="..\BoletoBus.Viaje.Application\BoletoBus.Viaje.Application.csproj" />
