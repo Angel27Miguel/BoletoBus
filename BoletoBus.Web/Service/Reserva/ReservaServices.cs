@@ -13,17 +13,17 @@ namespace BoletoBus.Web.Service.Reserva
 {
     public class ReservaService : IReservaService
     {
-        private readonly IConfiguration _configuration;
-        private readonly ILogger<ReservaService> _logger;
-        private readonly IHttpClientFactory _clientFactory;
-        private readonly string _baseUrl;
+        private readonly IConfiguration Configuration;
+        private readonly ILogger<ReservaService> Logger;
+        private readonly IHttpClientFactory ClientFactory;
+        private readonly string BaseUrl;
 
         public ReservaService(IConfiguration configuration, ILogger<ReservaService> logger, IHttpClientFactory clientFactory)
         {
-            _configuration = configuration;
-            _logger = logger;
-            _clientFactory = clientFactory;
-            _baseUrl = _configuration["apiConfig:baseUrlReserva"];
+            Configuration = configuration;
+            Logger = logger;
+            ClientFactory = clientFactory;
+            BaseUrl = Configuration["apiConfig:baseUrlReserva"];
         }
 
         public async Task<ReservaGetListResult> GetReservas()
@@ -31,9 +31,9 @@ namespace BoletoBus.Web.Service.Reserva
             var result = new ReservaGetListResult();
             try
             {
-                using (var httpClient = _clientFactory.CreateClient())
+                using (var httpClient = ClientFactory.CreateClient())
                 {
-                    var response = await httpClient.GetAsync($"{_baseUrl}GetReserva");
+                    var response = await httpClient.GetAsync($"{BaseUrl}GetReserva");
                     response.EnsureSuccessStatusCode();
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     result = JsonConvert.DeserializeObject<ReservaGetListResult>(apiResponse);
@@ -41,7 +41,7 @@ namespace BoletoBus.Web.Service.Reserva
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error obteniendo la lista de reservas");
+                Logger.LogError(ex, "Error obteniendo la lista de reservas");
                 result.Success = false;
                 result.Message = "Error obteniendo la lista de reservas.";
             }
@@ -53,9 +53,9 @@ namespace BoletoBus.Web.Service.Reserva
             var result = new ReservaGetDetailsResult();
             try
             {
-                using (var httpClient = _clientFactory.CreateClient())
+                using (var httpClient = ClientFactory.CreateClient())
                 {
-                    var response = await httpClient.GetAsync($"{_baseUrl}/Reserva/GetReservaById?id={id}");
+                    var response = await httpClient.GetAsync($"{BaseUrl}GetReservaById?id{id}");
                     response.EnsureSuccessStatusCode();
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     result = JsonConvert.DeserializeObject<ReservaGetDetailsResult>(apiResponse);
@@ -63,7 +63,7 @@ namespace BoletoBus.Web.Service.Reserva
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error obteniendo la reserva con ID {id}");
+                Logger.LogError(ex, $"Error obteniendo la reserva con ID {id}");
                 result.Success = false;
                 result.Message = $"Error obteniendo la reserva con ID {id}.";
             }
@@ -75,10 +75,10 @@ namespace BoletoBus.Web.Service.Reserva
             var result = new ReservaGuardarResult();
             try
             {
-                using (var httpClient = _clientFactory.CreateClient())
+                using (var httpClient = ClientFactory.CreateClient())
                 {
                     var content = new StringContent(JsonConvert.SerializeObject(reservaGuardar), Encoding.UTF8, "application/json");
-                    var response = await httpClient.PostAsync($"{_baseUrl}/Reserva/GuardarReserva", content);
+                    var response = await httpClient.PostAsync($"{BaseUrl}GuardarReserva", content);
                     response.EnsureSuccessStatusCode();
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     result = JsonConvert.DeserializeObject<ReservaGuardarResult>(apiResponse);
@@ -86,22 +86,23 @@ namespace BoletoBus.Web.Service.Reserva
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error guardando la reserva");
+                Logger.LogError(ex, "Error guardando la reserva");
                 result.Success = false;
                 result.Message = "Error guardando la reserva.";
             }
             return result;
         }
 
+
         public async Task<ReservaEditarGetResult> ActualizarReserva(ReservaEditar reservaActualizar)
         {
             var result = new ReservaEditarGetResult();
             try
             {
-                using (var httpClient = _clientFactory.CreateClient())
+                using (var httpClient = ClientFactory.CreateClient())
                 {
                     var content = new StringContent(JsonConvert.SerializeObject(reservaActualizar), Encoding.UTF8, "application/json");
-                    var response = await httpClient.PutAsync($"{_baseUrl}/Reserva/ActualizarReserva", content);
+                    var response = await httpClient.PutAsync($"{BaseUrl}ActualizarReserva", content);
                     response.EnsureSuccessStatusCode();
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     result = JsonConvert.DeserializeObject<ReservaEditarGetResult>(apiResponse);
@@ -109,7 +110,7 @@ namespace BoletoBus.Web.Service.Reserva
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error actualizando la reserva");
+                Logger.LogError(ex, "Error actualizando la reserva");
                 result.Success = false;
                 result.Message = "Error actualizando la reserva.";
             }

@@ -1,9 +1,11 @@
-﻿using BoletoBus.Viaje.Application.Base;
+﻿using BoletoBus.Common;
 using BoletoBus.Viaje.Application.Dtos;
 using BoletoBus.Viaje.Application.Interfaces;
 using BoletoBus.Viaje.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BoletoBus.Viaje.Application.Services
 {
@@ -18,16 +20,101 @@ namespace BoletoBus.Viaje.Application.Services
             this.logger = logger;
         }
 
-        public ServiceResult EditarViaje(ViajeEditar viajeEditar)
+        public ServiceResult<List<ViajeMode>> GetViajes()
         {
-            var result = ValidarViaje(viajeEditar);
+            var result = new ServiceResult<List<ViajeMode>>();
 
-            if (!result.Success)
+            try
+            {
+                var viajes = viajeRepository.GetAll();
+                result.Data = viajes.Select(v => new ViajeMode
+                {
+                    IdViaje = v.Id,
+                    IdBus = v.IdBus,
+                    IdRuta = v.IdRuta,
+                    FechaSalida = v.FechaSalida,
+                    HoraSalida = v.HoraSalida,
+                    FechaLlegada = v.FechaLlegada,
+                    HoraLlegada = v.HoraLlegada,
+                    Precio = v.Precio,
+                    TotalAsientos = v.TotalAsientos,
+                    AsientosReservados = v.AsientosReservados
+                }).ToList();
+
+                logger.LogInformation("Viajes obtenidos exitosamente.");
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = "Ocurrió un error obteniendo los viajes";
+                logger.LogError(ex, result.Message);
+            }
+
+            return result;
+        }
+
+        public ServiceResult<ViajeMode> GetViaje(int id)
+        {
+            var result = new ServiceResult<ViajeMode>();
+
+            try
+            {
+                var viaje = viajeRepository.GetEntityBy(id);
+                if (viaje != null)
+                {
+                    result.Data = new ViajeMode
+                    {
+                        IdViaje = viaje.Id,
+                        IdBus = viaje.IdBus,
+                        IdRuta = viaje.IdRuta,
+                        FechaSalida = viaje.FechaSalida,
+                        HoraSalida = viaje.HoraSalida,
+                        FechaLlegada = viaje.FechaLlegada,
+                        HoraLlegada = viaje.HoraLlegada,
+                        Precio = viaje.Precio,
+                        TotalAsientos = viaje.TotalAsientos,
+                        AsientosReservados = viaje.AsientosReservados
+                    };
+
+                    logger.LogInformation($"Viaje con ID {id} obtenido exitosamente.");
+                }
+                else
+                {
+                    result.Success = false;
+                    result.Message = "Viaje no encontrado.";
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = "Ocurrió un error obteniendo el viaje";
+                logger.LogError(ex, result.Message);
+            }
+
+            return result;
+        }
+
+        public ServiceResult<bool> EditarViaje(ViajeEditar viajeEditar)
+        {
+            var result = new ServiceResult<bool>();
+
+            if (viajeEditar == null)
+            {
+                result.Success = false;
+                result.Message = "El modelo de edición no puede ser nulo.";
                 return result;
+            }
 
             try
             {
                 var entity = viajeRepository.GetEntityBy(viajeEditar.IdViaje);
+                if (entity == null)
+                {
+                    result.Success = false;
+                    result.Message = "Viaje no encontrado.";
+                    return result;
+                }
+
                 entity.IdBus = viajeEditar.IdBus;
                 entity.IdRuta = viajeEditar.IdRuta;
                 entity.FechaSalida = viajeEditar.FechaSalida;
@@ -40,6 +127,7 @@ namespace BoletoBus.Viaje.Application.Services
 
                 viajeRepository.Editar(entity);
                 logger.LogInformation($"Viaje con ID {viajeEditar.IdViaje} editado exitosamente.");
+                result.Data = true;
             }
             catch (Exception ex)
             {
@@ -47,25 +135,34 @@ namespace BoletoBus.Viaje.Application.Services
                 result.Message = "Ocurrió un error editando los datos";
                 logger.LogError(ex, result.Message);
             }
+
             return result;
         }
 
-        public ServiceResult EliminarViaje(ViajeEliminar viajeEliminar)
+        public ServiceResult<bool> EliminarViaje(ViajeEliminar viajeEliminar)
         {
-            var result = new ServiceResult();
+            var result = new ServiceResult<bool>();
+
+            if (viajeEliminar == null)
+            {
+                result.Success = false;
+                result.Message = "El modelo de eliminación no puede ser nulo.";
+                return result;
+            }
 
             try
             {
-                if (viajeEliminar is null)
+                var entity = viajeRepository.GetEntityBy(viajeEliminar.IdViaje);
+                if (entity == null)
                 {
                     result.Success = false;
-                    result.Message = "El viaje no puede ser nulo.";
+                    result.Message = "Viaje no encontrado.";
                     return result;
                 }
 
-                var entity = viajeRepository.GetEntityBy(viajeEliminar.IdViaje);
                 viajeRepository.Eliminar(entity);
                 logger.LogInformation($"Viaje con ID {viajeEliminar.IdViaje} eliminado exitosamente.");
+                result.Data = true;
             }
             catch (Exception ex)
             {
@@ -73,49 +170,20 @@ namespace BoletoBus.Viaje.Application.Services
                 result.Message = "Ocurrió un error eliminando los datos";
                 logger.LogError(ex, result.Message);
             }
+
             return result;
         }
 
-        public ServiceResult GetViaje(int id)
+        public ServiceResult<bool> GuardarViaje(ViajeGuardar viajeGuardar)
         {
-            var result = new ServiceResult();
-            try
-            {
-                result.Data = viajeRepository.GetEntityBy(id);
-                logger.LogInformation($"Viaje con ID {id} obtenido exitosamente.");
-            }
-            catch (Exception ex)
+            var result = new ServiceResult<bool>();
+
+            if (viajeGuardar == null)
             {
                 result.Success = false;
-                result.Message = "Ocurrió un error obteniendo los datos";
-                logger.LogError(ex, result.Message);
-            }
-            return result;
-        }
-
-        public ServiceResult GetViajes()
-        {
-            var result = new ServiceResult();
-            try
-            {
-                result.Data = viajeRepository.GetAll();
-                logger.LogInformation("Viajes obtenidos exitosamente.");
-            }
-            catch (Exception ex)
-            {
-                result.Success = false;
-                result.Message = "Ocurrió un error obteniendo los viajes";
-                logger.LogError(ex, result.Message);
-            }
-            return result;
-        }
-
-        public ServiceResult GuardarViaje(ViajeGuardar viajeGuardar)
-        {
-            var result = ValidarViaje(viajeGuardar);
-
-            if (!result.Success)
+                result.Message = "El modelo de guardado no puede ser nulo.";
                 return result;
+            }
 
             try
             {
@@ -130,95 +198,18 @@ namespace BoletoBus.Viaje.Application.Services
                     Precio = viajeGuardar.Precio,
                     TotalAsientos = viajeGuardar.TotalAsientos,
                     AsientosReservados = viajeGuardar.AsientosReservados,
-                    FechaCreacion = DateTime.Now 
+                    FechaCreacion = DateTime.Now
                 };
 
                 viajeRepository.Agregar(entity);
                 logger.LogInformation("Viaje guardado exitosamente.");
+                result.Data = true;
             }
             catch (Exception ex)
             {
                 result.Success = false;
                 result.Message = "Ocurrió un error guardando los datos";
                 logger.LogError(ex, result.Message);
-            }
-            return result;
-        }
-
-        private ServiceResult ValidarViaje(object viaje)
-        {
-            var result = new ServiceResult();
-
-            if (viaje is null)
-            {
-                result.Success = false;
-                result.Message = "El viaje no puede ser nulo.";
-                return result;
-            }
-
-            if (viaje is ViajeEditar editarModel)
-            {
-                return ValidarCamposViaje(editarModel.IdBus, editarModel.IdRuta, editarModel.HoraSalida, editarModel.HoraLlegada, editarModel.Precio, editarModel.TotalAsientos, editarModel.AsientosReservados);
-            }
-            else if (viaje is ViajeGuardar guardarModel)
-            {
-                return ValidarCamposViaje(guardarModel.IdBus, guardarModel.IdRuta, guardarModel.HoraSalida, guardarModel.HoraLlegada, guardarModel.Precio, guardarModel.TotalAsientos, guardarModel.AsientosReservados);
-            }
-
-            return result;
-        }
-
-        private ServiceResult ValidarCamposViaje(int IdBus, int IdRuta, TimeSpan HoraSalida, TimeSpan HoraLlegada, decimal Precio, int TotalAsientos, int AsientosReservados)
-        {
-            var result = new ServiceResult();
-
-            if (IdBus <= 0)
-            {
-                result.Success = false;
-                result.Message = "El ID del bus es requerido.";
-                return result;
-            }
-
-            if (IdRuta <= 0)
-            {
-                result.Success = false;
-                result.Message = "El ID de la ruta es requerido.";
-                return result;
-            }
-
-            if (TotalAsientos <= 0)
-            {
-                result.Success = false;
-                result.Message = "El total de asientos es requerido.";
-                return result;
-            }
-
-            if (AsientosReservados < 0)
-            {
-                result.Success = false;
-                result.Message = "Los asientos reservados no pueden ser negativos.";
-                return result;
-            }
-
-            if (HoraSalida.TotalHours > 99999.99 || HoraSalida.TotalHours < 0)
-            {
-                result.Success = false;
-                result.Message = "La hora de salida debe ser un valor válido.";
-                return result;
-            }
-
-            if (HoraLlegada.TotalHours > 99999.99 || HoraLlegada.TotalHours < 0)
-            {
-                result.Success = false;
-                result.Message = "La hora de llegada debe ser un valor válido.";
-                return result;
-            }
-
-            if (Precio < 0 || Precio > 9999999.99m)
-            {
-                result.Success = false;
-                result.Message = "El precio debe ser un valor válido.";
-                return result;
             }
 
             return result;
