@@ -1,0 +1,100 @@
+﻿@model IEnumerable<BoletoBus.Viaje.Application.Dtos.ViajeMode>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Viaje List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdViaje)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdBus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdRuta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaSalida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoraSalida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaLlegada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoraLlegada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalAsientos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AsientosReservados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AsientoDisponibles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCreacion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdViaje)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdBus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdRuta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaSalida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraSalida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaLlegada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraLlegada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalAsientos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AsientosReservados)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AsientoDisponibles)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCreacion)
+            </td>
+            <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.IdViaje }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.IdViaje })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

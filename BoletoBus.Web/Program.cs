@@ -1,5 +1,6 @@
 using BoletoBus.Web.Service.Empleado;
 using BoletoBus.Web.Service.Reserva;
+using BoletoBus.Web.Service.Viaje;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddHttpClient();
 builder.Services.AddTransient<IEmpleadoService, EmpleadoService>();
 
 builder.Services.AddTransient<IReservaService, ReservaService>();
+
+builder.Services.AddTransient<IViajeServices, ViajeService>();
 
 //builder.Services.AddTransient<IEmpleadoService, EmpleadoService>();
 

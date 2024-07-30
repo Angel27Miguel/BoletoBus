@@ -1,13 +1,7 @@
-﻿using BoletoBus.Common;
-using BoletoBus.Viaje.Application.Dtos;
+﻿using BoletoBus.Viaje.Application.Dtos;
 using BoletoBus.Web.Models.ViajesModels;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using System;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BoletoBus.Web.Service.Viaje
 {
@@ -33,7 +27,7 @@ namespace BoletoBus.Web.Service.Viaje
             {
                 using (var httpClient = ClientFactory.CreateClient())
                 {
-                    var response = await httpClient.GetAsync($"{BaseUrl}/GetViaje");
+                    var response = await httpClient.GetAsync($"{BaseUrl}GetViaje");
                     response.EnsureSuccessStatusCode();
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     result = JsonConvert.DeserializeObject<ViajeGetListResult>(apiResponse);
@@ -55,7 +49,7 @@ namespace BoletoBus.Web.Service.Viaje
             {
                 using (var httpClient = ClientFactory.CreateClient())
                 {
-                    var response = await httpClient.GetAsync($"{BaseUrl}/GetViajeById?id={id}");
+                    var response = await httpClient.GetAsync($"{BaseUrl}GetViajeById?id={id}");
                     response.EnsureSuccessStatusCode();
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     result = JsonConvert.DeserializeObject<ViajeGetDetailsResult>(apiResponse);
@@ -78,7 +72,7 @@ namespace BoletoBus.Web.Service.Viaje
                 using (var httpClient = ClientFactory.CreateClient())
                 {
                     var content = new StringContent(JsonConvert.SerializeObject(viajeGuardar), Encoding.UTF8, "application/json");
-                    var response = await httpClient.PostAsync($"{BaseUrl}/GuardarViaje", content);
+                    var response = await httpClient.PostAsync($"{BaseUrl}GuardarViaje", content);
                     response.EnsureSuccessStatusCode();
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     result = JsonConvert.DeserializeObject<ViajeGuardarResult>(apiResponse);
@@ -101,7 +95,7 @@ namespace BoletoBus.Web.Service.Viaje
                 using (var httpClient = ClientFactory.CreateClient())
                 {
                     var content = new StringContent(JsonConvert.SerializeObject(viajeEditar), Encoding.UTF8, "application/json");
-                    var response = await httpClient.PutAsync($"{BaseUrl}/ActualizarViaje", content);
+                    var response = await httpClient.PutAsync($"{BaseUrl}ActualizarViaje", content);
                     response.EnsureSuccessStatusCode();
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     result = JsonConvert.DeserializeObject<ViajeEditarGetResult>(apiResponse);

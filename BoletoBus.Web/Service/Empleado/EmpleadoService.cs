@@ -48,7 +48,7 @@ namespace BoletoBus.Web.Service.Empleado
             {
                 using (var httpClient = ClientFactory.CreateClient())
                 {
-                    var response = await httpClient.GetAsync($"{BaseUrl}/Empleado/GetEmpleadoById?id={id}");
+                    var response = await httpClient.GetAsync($"{BaseUrl}GetEmpleadoById?id={id}");
                     response.EnsureSuccessStatusCode();
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     result = JsonConvert.DeserializeObject<EmpleadoGetDetailsResult>(apiResponse);
@@ -71,7 +71,7 @@ namespace BoletoBus.Web.Service.Empleado
                 using (var httpClient = ClientFactory.CreateClient())
                 {
                     var content = new StringContent(JsonConvert.SerializeObject(empleadoGuardar), System.Text.Encoding.UTF8, "application/json");
-                    var response = await httpClient.PostAsync($"{BaseUrl}/Empleado/GuardarEmpleado", content);
+                    var response = await httpClient.PostAsync($"{BaseUrl}GuardarEmpleado", content);
                     response.EnsureSuccessStatusCode();
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     result = JsonConvert.DeserializeObject<EmpleadoGuardarResult>(apiResponse);
@@ -94,7 +94,7 @@ namespace BoletoBus.Web.Service.Empleado
                 using (var httpClient = ClientFactory.CreateClient())
                 {
                     var content = new StringContent(JsonConvert.SerializeObject(empleadoActualizar), System.Text.Encoding.UTF8, "application/json");
-                    var response = await httpClient.PutAsync($"{BaseUrl}/Empleado/ActualizarEmpleado", content);
+                    var response = await httpClient.PutAsync($"{BaseUrl}ActualizarEmpleado", content);
                     response.EnsureSuccessStatusCode();
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     result = JsonConvert.DeserializeObject<EmpleadoEditarGetResult>(apiResponse);

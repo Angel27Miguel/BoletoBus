@@ -1,20 +1,43 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BoletoBus.Viaje.Application.Dtos;
+using BoletoBus.Web.Service.Viaje;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BoletoBus.Web.Controllers
 {
     public class ViajeController : Controller
     {
-        // GET: ViajeController
-        public ActionResult Index()
+        private readonly IViajeServices viajeService;
+
+        public ViajeController(IViajeServices viajeService)
         {
-            return View();
+            this.viajeService = viajeService;
+        }
+
+        // GET: ViajeController
+        public async Task<ActionResult> Index()
+        {
+            var viajeGetList = await viajeService.GetViajes();
+
+            if (!viajeGetList.Success)
+            {
+                ViewBag.Message = viajeGetList.Message;
+                return View();
+            }
+
+            return View(viajeGetList.Data);
         }
 
         // GET: ViajeController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var viajeGetById = await viajeService.GetViajeaById(id);
+            if (!viajeGetById.Success)
+            {
+                ViewBag.Message = viajeGetById.Message;
+                return View();
+            }
+
+            return View(viajeGetById.Data);
         }
 
         // GET: ViajeController/Create
@@ -26,10 +49,17 @@ namespace BoletoBus.Web.Controllers
         // POST: ViajeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(ViajeGuardar viajeGuardar)
         {
             try
             {
+                var viaje = await viajeService.GuardarViaje(viajeGuardar);
+                if (!viaje.Success)
+                {
+                    ViewBag.Message = viaje.Message;
+                    return View();
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -39,45 +69,33 @@ namespace BoletoBus.Web.Controllers
         }
 
         // GET: ViajeController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var viajeGetById = await viajeService.GetViajeaById(id);
+            if (!viajeGetById.Success)
+            {
+                ViewBag.Message = viajeGetById.Message;
+                return View();
+            }
+
+            return View(viajeGetById.Data);
         }
 
         // POST: ViajeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(ViajeEditar viajeEditar)
         {
-            try
+            var result = await viajeService.ActualizarViaje(viajeEditar);
+            if (!result.Success)
             {
-                return RedirectToAction(nameof(Index));
+                ViewBag.Message = result.Message;
+                return View(viajeEditar);
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: ViajeController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: ViajeController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
